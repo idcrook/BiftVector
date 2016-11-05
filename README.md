@@ -1,20 +1,44 @@
 
-# BiftVector
+# BiftVector [![CI Status](http://img.shields.io/travis/dpcrook/BiftVector.svg?style=flat)](https://travis-ci.org/dpcrook/BiftVector) [![Version](https://img.shields.io/cocoapods/v/BiftVector.svg?style=flat)](http://cocoapods.org/pods/BiftVector) [![License](https://img.shields.io/cocoapods/l/BiftVector.svg?style=flat)](http://cocoapods.org/pods/BiftVector) [![Platform](https://img.shields.io/cocoapods/p/BiftVector.svg?style=flat)](http://cocoapods.org/pods/BiftVector)
 
 A Swift package for bit vectors (also called bit arrays).
 
 ## Features
- - Aims to be more full-featured, efficient, and performant than one-off bit array Swift implementations.
- - Supports arbitrarily-sized bit vectors.
+ - Compared to one-off single word-oriented Swift implementations, aims to:
+   - support arbitrarily-sized bit vectors
+   - include full complement of functions
+ - Goal is to be performant and memory efficient while still supporting flexible lengths  
  
+ 
+## Installation
 
+### Compatibility
 
-## Install
+ - Swift 3.0+, Xcode 8+
 
 ### Swift Package manager
 
+### Cocoapods
 
-## LICENSE
+
+### Related packages
+
+CocoaPods
+ - Bit
+ - Bitter
+ - BitByteStream 
+
+## Author
+
+David Crook
+
+## Attribution
+
+Inspired by https://pypi.python.org/pypi/BitVector
+
+Named as a portmanteau word of `Biffed` and `Swift` that sounds close to `Bit`, forming into Vector.
+
+## License
 
 This package is licensed under the [MIT License](LICENSE.txt).
 
