@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint ${POD_NAME}.podspec' to ensure this is a
+# Be sure to run `pod lib lint BiftVector.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -15,16 +15,15 @@ Pod::Spec.new do |s|
                        This library provides bit vector objects and functions.
                        DESC
 
-  s.homepage         = "https://github.com/dpcrook/BiftVector"
+  s.homepage         = "https://github.com/idcrook/BiftVector"
   s.license          = { :type => "MIT", :file => "LICENSE.txt" }
   s.author           = "David Crook"
-  s.source           = { :git => "https://github.com/dpcrook/BiftVector.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/idcrook/BiftVector.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/idcrook'
 
-  # s.platform     = :ios, '8.0'
   s.ios.deployment_target = '8.0'
+  #s.osx.deployment_target = '10.10'
 
   s.source_files = 'Sources/*.{swift,h}'
-  # s.frameworks = 'Foundation'
 end
 
