@@ -33,7 +33,7 @@ print ("Size of bvSlice = \(bvSlice.length)")
 ### Compatibility
 
  - Swift 3.0+, Xcode 8+
-
+ - 64b platforms
 
 ## Setup
 
