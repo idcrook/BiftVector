@@ -54,6 +54,48 @@ struct BiftVector {
         _bv = [Int]()
         
     }
+
+    init? (bitlist: [Int] ) {
+        guard bitlist.count >= 0 else {
+            // Error:
+            return
+        }
+        _bv = [Int]()
+    }
+    
+    init? (bitlist: String ) {
+        guard bitlist.characters.count >= 0 else {
+            // Error:
+            return
+        }
+        _bv = [Int]()
+    }
+    
+    init? (uintVal: UInt64, size: Int = 64 ) {
+        guard size >= 0, uintVal < UInt64.max else {
+            // Error:
+            return
+        }
+        _bv = [Int]()
+    }
+
+    init? (textString: String ) {
+        guard textString.characters.count >= 0 else {
+            // Error:
+            return
+        }
+        _bv = [Int]()
+    }
+    
+    init? (hexString: String ) {
+        guard hexString.characters.count >= 0 else {
+            // Error:
+            return
+        }
+        _bv = [Int]()
+    }
+    
+
     
     
 }
