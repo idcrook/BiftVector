@@ -12,11 +12,24 @@ A Swift package for bit vectors (also called bit arrays).
  
 ## Installation
 
+```bash
+git clone ...
+swift package generate-xcodeproj
+open BiftVector.xcodeproj
+```
+
 ### Compatibility
 
  - Swift 3.0+, Xcode 8+
 
 ### Swift Package manager
+
+
+```bash
+git clone ...
+swift package generate-xcodeproj
+open BiftVector.xcodeproj
+```
 
 ### Cocoapods
 
