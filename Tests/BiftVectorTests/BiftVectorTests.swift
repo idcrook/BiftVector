@@ -5,34 +5,41 @@ class BiftVectorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        //viewController = ViewController()
-    }
-    
-    func testInit_Example() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCTAssertEqual(BiftVector(size: 0)!.description, "FIXME")
     }
     
     func testInit_AcceptsSizeZero() {
         let bv = BiftVector(size: 0)
-        XCTAssertEqual(bv!.description, "FIXME")
+        XCTAssertEqual(bv.description, "")
     }
 
     func testInit_AcceptsSizeLessThan64() {
         let bv = BiftVector(size: 33)
-        XCTAssertEqual(bv!.description, "FIXME")
+        XCTAssertEqual(bv.description, "000000000000000000000000000000000")
     }
     
     func testInit_AcceptsSizeGreaterThan64() {
         let bv = BiftVector(size: 65)
-        XCTAssertEqual(bv!.description, "FIXME")
+        XCTAssertEqual(bv.description, "00000000000000000000000000000000000000000000000000000000000000000")
     }
     
+    func testDebugExtension_descriptionSizeOf1() {
+        let bv = BiftVector(size: 1)
+        XCTAssertEqual(bv.description, "0")
+    }
 
+    func testDebugExtension_descriptionSizeOf63() {
+        let bv = BiftVector(size: 63)
+        XCTAssertEqual(bv.description, "000000000000000000000000000000000000000000000000000000000000000")
+    }
+    
+    func testDebugExtension_descriptionSizeOf64() {
+        let bv = BiftVector(size: 64)
+        XCTAssertEqual(bv.description, "0000000000000000000000000000000000000000000000000000000000000000")
+    }
+    
     static var allTests : [(String, (BiftVectorTests) -> () throws -> Void)] {
+        // FIXME: Should have a complete list of test cases (for Linux)
         return [
-            ("testInit_Example", testInit_Example),
             ("testInit_AcceptsSizeZero", testInit_AcceptsSizeZero),
         ]
     }
