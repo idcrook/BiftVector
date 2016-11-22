@@ -1,4 +1,4 @@
 osx_image: xcode8.1
 language: objective-c
 
-script: xcodebuild  -scheme BiftVector -project BiftVector.xcodeproj test
+script: xcodebuild  -scheme BiftVector-macOS -project BiftVector.xcodeproj test
