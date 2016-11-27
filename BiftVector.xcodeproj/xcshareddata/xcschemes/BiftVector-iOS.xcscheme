@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "9999"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_16"
+               BlueprintIdentifier = "52D6D97B1BEFF229002C0205"
                BuildableName = "BiftVector.framework"
-               BlueprintName = "BiftVector"
+               BlueprintName = "BiftVector-iOS"
                ReferencedContainer = "container:BiftVector.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,13 +32,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_23"
-               BuildableName = "BiftVectorTests.xctest"
-               BlueprintName = "BiftVectorTests"
+               BlueprintIdentifier = "52D6D9851BEFF229002C0205"
+               BuildableName = "BiftVector-iOS Tests.xctest"
+               BlueprintName = "BiftVector-iOS Tests"
                ReferencedContainer = "container:BiftVector.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "52D6D97B1BEFF229002C0205"
+            BuildableName = "BiftVector.framework"
+            BlueprintName = "BiftVector-iOS"
+            ReferencedContainer = "container:BiftVector.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -55,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_16"
+            BlueprintIdentifier = "52D6D97B1BEFF229002C0205"
             BuildableName = "BiftVector.framework"
-            BlueprintName = "BiftVector"
+            BlueprintName = "BiftVector-iOS"
             ReferencedContainer = "container:BiftVector.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -70,6 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "52D6D97B1BEFF229002C0205"
+            BuildableName = "BiftVector.framework"
+            BlueprintName = "BiftVector-iOS"
+            ReferencedContainer = "container:BiftVector.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
