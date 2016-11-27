@@ -210,7 +210,7 @@ extension UInt64 {
     }
 }
 
-extension BiftVector: CustomStringConvertible {
+extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         var s = ""
         var z = size
@@ -224,5 +224,12 @@ extension BiftVector: CustomStringConvertible {
         }
         return s
     }
+    
+    public var debugDescription: String {
+        var s = description
+        s += "\nsize = \(size)"
+        return s
+    }
+
 }
 

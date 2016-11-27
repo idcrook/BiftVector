@@ -52,6 +52,12 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(bv.description, "0")
     }
 
+    func testDebugDescriptionExtension_descriptionSizeOf1() {
+        let bv = BiftVector(size: 1)
+        XCTAssertEqual(bv.debugDescription, "0\nsize = 1")
+    }
+
+    
     func testDebugExtension_descriptionSizeOf63() {
         let bv = BiftVector(size: 63)
         XCTAssertEqual(bv.description, "000000000000000000000000000000000000000000000000000000000000000")
