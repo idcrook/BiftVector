@@ -4,18 +4,8 @@
 
 A Swift package for bit vectors (also called bit arrays).
 
-## Features
-Support arbitrarily-sized bit vectors
-
-## Goals
-  - Support arbitrarily-sized bit vectors, and support flexible lengths
-  - Be performant and memory efficient
-  - Include full complement of functions and operators
-  - Documented API
-  - Cross-platform compatible (Linux, iOS, macOS, watchOS, tvOS)
-  - Use continuous integration and TDD (Test Driven Development) practices
-
-Also plan to include a CLI wrapper, as a demo application.
+**This project has not yet had its initial release.**
+See its [GitHub project kanban](https://github.com/idcrook/BiftVector/projects/1) for current progress.
 
 ## Examples
 
@@ -28,12 +18,27 @@ let bvSlice = result[2..<32]
 print ("Size of bvSlice = \(bvSlice.length)")
 ```
 
-
-
-### Compatibility
+## Compatibility
 
  - Swift 3.0+, Xcode 8+
  - 64b platforms
+
+## Goals and Features
+
+The [project wiki](https://github.com/idcrook/BiftVector/wiki) has additional features listed.
+
+Main goals
+  - Intends to support "arbitrarily-sized" bit vectors
+  - Include full complement of functions and operators
+  - Documented API
+  - Cross-platform compatible (Linux, iOS, macOS, watchOS, tvOS)
+  - Use continuous integration and TDD (Test Driven Development) practices
+
+Additional goals
+  - Be performant and memory efficient
+  - Include a CLI wrapper as a demo application
+  - Include a Swift Playground to as another demo
+
 
 ## Setup
 
@@ -73,7 +78,7 @@ Searching through CocoaPods, I noticed
 
  - Bit
  - Bitter
- - BitByteStream 
+ - BitByteStream
 
 ## How this was created
 
@@ -86,19 +91,23 @@ git init .
 swift package init --type library
 swift package generate-xcodeproj
 open BiftVector.xcodeproj
+# later used SwiftPlate project output as guide
 ```
 
 ## Author
 
-David Crook
+David Crook - @idcrook
 
 ## Attribution
 
-Inspired by https://pypi.python.org/pypi/BitVector
+Inspired by open source projects:
+  - [BitVector project](https://pypi.python.org/pypi/BitVector) (Python)
+  - Swift Algorithm Club [Bit Set](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Bit%20Set) (Swift)
 
 Named as a portmanteau word of `Biffed` and `Swift` that sounds close to `Bit`, forming into Vector.
+
+
 
 ## License
 
 This package is licensed under the [MIT License](LICENSE.txt).
-
