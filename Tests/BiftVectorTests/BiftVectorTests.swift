@@ -62,6 +62,10 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(bv.description, "0000000000000000000000000000000000000000000000000000000000000000")
     }
     
+}
+
+#if os(Linux)
+extension BiftVectorTests {
     static var allTests : [(String, (BiftVectorTests) -> () throws -> Void)] {
         // FIXME: Should have a complete list of test cases (for Linux)
         return [
@@ -69,3 +73,4 @@ class BiftVectorTests: XCTestCase {
         ]
     }
 }
+#endif
