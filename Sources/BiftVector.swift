@@ -71,31 +71,31 @@ public struct BiftVector {
 
     // How man bits are in this
     private(set) public var size: Int = 0
-    
+
     // Bit storage uses words
     static fileprivate let N = 64
     public typealias Word = UInt64
     fileprivate(set) public var words: [Word]
-    
+
     /// Create an object that can hold `size` bits
     ///
     /// - Parameter size: Number of bits. All bits are set to zero
     public init (size aSize: Int) {
         assert(aSize >= 0)
-        
+
         // round up to nearest number of words
         let n = BiftVector.bitCountToWordCount(aSize)
 
         self.size = aSize
         self.words = [Word](repeating: 0, count: n)
     }
-    
+
     /// Initialize an object from an arrary of bits
     ///
     /// - Parameter bitlist: Array containing values 0 or 1
     public init (bitlist: [Int] ) {
         assert(bitlist.count >= 0)
-        
+
         self.size = bitlist.count
         let n = BiftVector.bitCountToWordCount(self.size)
 
@@ -109,15 +109,15 @@ public struct BiftVector {
             }
         }
     }
-    
+
     /// Initialize an object from a bit string
     ///
     /// - Parameter bitstring: String containing text characters 0 or 1
     init (bitstring: String ) {
         assert(bitstring.characters.count >= 0)
-        
+
         let n = BiftVector.bitCountToWordCount(self.size)
-        
+
         words = [Word](repeating: 0, count: n)
     }
 
@@ -128,7 +128,7 @@ public struct BiftVector {
         let (j, m) = indexOf(i)
         words[j] |= m
     }
-    
+
     /// Set bit at index to 0
     ///
     /// - Parameter i: index of bit
@@ -136,7 +136,7 @@ public struct BiftVector {
         let (j, m) = indexOf(i)
         words[j] &= ~m
     }
-    
+
     //
     public subscript(i: Int) -> Bool {
         get { return isSet(i) }
@@ -149,8 +149,8 @@ public struct BiftVector {
     }
 
 
-    
-    
+
+
     init (uintVal: UInt64, size: Int = 64 ) {
         assert(size >= 0)
         assert(uintVal < Word.max)
@@ -165,14 +165,14 @@ public struct BiftVector {
         words = [Word]()
 
     }
-    
+
     init (hexString: String ) {
         assert(hexString.characters.count >= 0 )
 
         words = [Word]()
 
     }
-    
+
     static private func bitCountToWordCount(_ size: Int) -> Int {
         let n = (size + (N-1)) / N
 
@@ -224,7 +224,7 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
         }
         return s
     }
-    
+
     public var debugDescription: String {
         var s = description
         s += "\nsize = \(size)"
@@ -232,4 +232,3 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
     }
 
 }
-
