@@ -5,7 +5,8 @@
 A Swift package for bit vectors (also called bit arrays).
 
 **This project has not yet had its initial release.**
-See its [GitHub project kanban](https://github.com/idcrook/BiftVector/projects/1) for current progress.
+
+See [project kanban](https://github.com/idcrook/BiftVector/projects/1) for current progress. Take a quick look at [contribution guidelines](https://github.com/idcrook/BiftVector/blob/master/.github/CONTRIBUTING.md).
 
 ## Examples
 
@@ -72,13 +73,16 @@ import BiftVector
 
 TBD
 
-### Related packages
+## Development
 
-Searching through CocoaPods, I noticed
+Uses `XCT*` Framework which are included in Xcode and Swift distributions.
 
- - Bit
- - Bitter
- - BitByteStream
+To run test suite from command line:
+```bash
+swift test
+```
+
+`swift test` runs `swift build` if needed, and works both under macOS and Linux.
 
 ## How this was created
 
@@ -91,7 +95,7 @@ git init .
 swift package init --type library
 swift package generate-xcodeproj
 open BiftVector.xcodeproj
-# later used SwiftPlate project output as guide
+# later used SwiftPlate project output as guide https://github.com/JohnSundell/SwiftPlate
 ```
 
 ## Author
@@ -106,7 +110,13 @@ Inspired by open source projects:
 
 Named as a portmanteau word of `Biffed` and `Swift` that sounds close to `Bit`, forming into Vector.
 
+### Related packages
 
+Searching through CocoaPods, I noticed
+
+ - Bit
+ - Bitter
+ - BitByteStream
 
 ## License
 
