@@ -33,8 +33,6 @@
 //  - BiftVector(intVal: 8675309, size: 24)
 //  - BiftVector(textString: "hello")
 //  - BiftVector(hexString: "decafBAD")
-//  - bv2 = b1.copy()  // Copy constructor
-//
 //
 // Display
 //  - print(bv)
@@ -64,7 +62,7 @@
 // // Add advance operations tier 2
 //
 
-// import Foundation
+//import Foundation
 
 
 public struct BiftVector {
@@ -101,7 +99,7 @@ public struct BiftVector {
 
         words = [Word](repeating: 0, count: n)
         for (index, value) in bitlist.enumerated() {
-            print ("index \(index + 1): \(value)")
+            //debugPrint ("index \(index + 1): \(value)")
             if value == 1 {
                 set(index)
             } else {
@@ -113,14 +111,121 @@ public struct BiftVector {
     /// Initialize an object from a bit string
     ///
     /// - Parameter bitstring: String containing text characters 0 or 1
-    init (bitstring: String ) {
-        assert(bitstring.characters.count >= 0)
+    init (bitString: String ) {
+        assert(bitString.characters.count >= 0)
 
+        self.size = bitString.characters.count
         let n = BiftVector.bitCountToWordCount(self.size)
 
         words = [Word](repeating: 0, count: n)
+        for (index, character) in bitString.characters.enumerated() {
+            //debugPrint ("index \(index + 1): \(character)")
+            if character == "1" {
+                set(index)
+            } else {
+                clear(index)
+            }
+        }
     }
 
+    /// Initialize an object from an integer value
+    ///
+    /// - Parameter intVal: 64b integer used for initializing bit value
+    init (uintVal: UInt64, size: Int = BiftVector.N) {
+        assert(size <= BiftVector.N && size > 0)
+
+        var bitString = ""
+        
+        // get bits representation
+        let bits = String(uintVal, radix: 2)
+        let numberOfBits = bits.characters.count
+        
+        debugPrint("\(uintVal) \(bits) \(numberOfBits)")
+        if numberOfBits < size {
+            let padding = String(repeating: "0", count: (size - numberOfBits))
+            bitString = padding + bits
+        } else {
+            bitString = bits
+            bitString.truncateBitString(to: size)
+        }
+
+        self.init(bitString: bitString)
+    }
+
+    /// Initialize an object from string value
+    ///
+    /// - Parameter textString: String containing characters to form bit vector. Assumes UTF-8 encoding.
+    init (textString: String) {
+        assert(textString.characters.count >= 0 )
+        
+        var bitString = ""
+        
+
+        for byte in textString.utf8 {
+            let byteBits = String(byte, radix: 2)
+            let padding = String(repeating: "0", count: (8 - byteBits.characters.count))
+
+            bitString = bitString + padding + byteBits
+        }
+        
+        self.init(bitString: bitString)
+    }
+
+    
+    /// Initialize an object from hexadecimal string value
+    ///
+    /// - Parameter hexString: String containing hex digits used to initialize a new vector
+    /// - Parameter size: Size of the new vector
+    init (hexString: String, size: Int) {
+        assert(size > 0)
+        assert(hexString.characters.count >= 0 )
+        
+        // check for truncation
+        let nibblesInBits = hexString.characters.count * 4
+        if (size < nibblesInBits) {
+            debugPrint("string \(hexString) likely contains more implicit bits than size \(size)")
+        }
+        
+        var bitString = ""
+        
+        for (_, character) in hexString.lowercased().characters.enumerated() {
+            let nibble = BiftVector.lookupHexNibbleBitstring(character)
+            bitString = bitString + nibble
+        }
+        
+        // truncate bitString to size
+        bitString.truncateBitString(to: size)
+        
+        self.init(bitString: bitString)
+    }
+
+    /// Convenience initializer
+    ///
+    /// - Parameter hexString: String containing hex digits used to initialize a new vector
+    /// - Parameter withSize: Number of bits for new vector to contain
+    init (hexString: String, withSize size: Int) {
+        assert(size > 0)
+        assert(hexString.characters.count >= 0 )
+        
+        self.init(hexString: hexString, size: size)
+    }
+
+    /// Convenience initializer
+    ///
+    /// - Parameter hexString: String containing hex digits used to initialize a new vector
+    init (hexString: String) {
+        assert(hexString.characters.count >= 0 )
+        
+        var size: Int = BiftVector.N   // default implicit BiftVector size
+        let nibblesInBits = hexString.characters.count * 4
+        if nibblesInBits > size {
+            size = nibblesInBits
+        }
+        
+        self.init(hexString: hexString, size: size)
+    }
+
+    
     /// Set bit at index to 1
     ///
     /// - Parameter i: index of bit
@@ -148,31 +253,6 @@ public struct BiftVector {
         return (words[j] & m) != 0
     }
 
-
-
-
-    init (uintVal: UInt64, size: Int = 64 ) {
-        assert(size >= 0)
-        assert(uintVal < Word.max)
-
-        words = [Word]()
-
-    }
-
-    init (textString: String ) {
-        assert(textString.characters.count >= 0)
-
-        words = [Word]()
-
-    }
-
-    init (hexString: String ) {
-        assert(hexString.characters.count >= 0 )
-
-        words = [Word]()
-
-    }
-
     static private func bitCountToWordCount(_ size: Int) -> Int {
         let n = (size + (N-1)) / N
 
@@ -190,11 +270,28 @@ public struct BiftVector {
         let m = Word(i - o*BiftVector.N)
         return (o, 1 << m)
     }
+    
+    static private func lookupHexNibbleBitstring(_ character: Character) -> String {
+        assert("0123456789abcdef".characters.contains(character))
+        var nibble = "0000"
+        
+        let nibbleNumber = UInt8(String(character), radix: 16)
+        if let number = nibbleNumber {
+            let convertedToBits = String(number & 0xf, radix: 2)
+            // A nibble is 4 bits in size
+            let padding = String(repeating: "0", count: (4 - convertedToBits.characters.count))
+            nibble = padding + convertedToBits
+        }
+
+        debugPrint("\(character) -> \(nibble)")
+        
+        return nibble
+    }
 }
 
 // MARK: - Debugging
 
-extension UInt64 {
+extension BiftVector.Word {
     /// Utility function for a word: bitstring representation
     ///
     /// - Parameter bits: Number of bits (default: 64)
@@ -230,5 +327,22 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
         s += "\nsize = \(size)"
         return s
     }
+}
 
+// MARK: - Extensions
+
+extension String {
+    /// Utility function for BiftVector to truncate bitString to a given length
+    ///
+    /// - Parameter to: New length of bitString
+    mutating func truncateBitString(to size: Int) {
+        guard size <= self.characters.count else {
+            return  // size greater than number of characters: no need to truncate
+        }
+        let bitStringEndIndex = self.endIndex
+        let bitStringstartIndex = self.index(bitStringEndIndex, offsetBy: -size)
+        let range = Range(uncheckedBounds: (lower: bitStringstartIndex, upper: bitStringEndIndex))
+        self = self[range]
+    }
+    
 }

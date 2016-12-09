@@ -67,7 +67,68 @@ class BiftVectorTests: XCTestCase {
         let bv = BiftVector(size: 64)
         XCTAssertEqual(bv.description, "0000000000000000000000000000000000000000000000000000000000000000")
     }
+
+    func testInit_AcceptsBitlist() {
+        let bv = BiftVector(bitlist: [1,1,1,1,1,1,1,0])
+        XCTAssertEqual(bv.description, "11111110")
+    }
+
+    func testInit_AcceptsBitstring() {
+        let bv = BiftVector(bitString: "11111111011111111")
+        XCTAssertEqual(bv.description, "11111111011111111")
+    }
     
+    func testInit_ShouldTakeUIntValue() {
+        let bv = BiftVector(uintVal: 8675309)
+        XCTAssertEqual(bv.description, "0000000000000000000000000000000000000000100001000101111111101101")
+    }
+
+    func testInit_ShouldTakeUIntValueWithSize() {
+        let bv = BiftVector(uintVal: 8675309, size: 24)
+        XCTAssertEqual(bv.description, "100001000101111111101101")
+    }
+
+    func testInit_ShouldTakeUIntValue2WithSize() {
+        let bv = BiftVector(uintVal: 8675309, size: 25)
+        XCTAssertEqual(bv.description, "0100001000101111111101101")
+    }
+
+    func testInit_AcceptsHexStringImplicitSize() {
+        let bv = BiftVector(hexString: "deadBEEF")
+        XCTAssertEqual(bv.description, "11011110101011011011111011101111")
+    }
+
+    func testInit_AcceptsHexStringImplicitSize2() {
+        let bv = BiftVector(hexString: "0deadBEEF")
+        XCTAssertEqual(bv.description, "000011011110101011011011111011101111")
+    }
+    
+    func testInit_AcceptsHexStringLargeImplicitSize() {
+        let bv = BiftVector(hexString: "decafBADc0ffee600D")
+        XCTAssertEqual(bv.description, "110111101100101011111011101011011100000011111111111011100110000000001101")
+    }
+
+    func testInit_AcceptsHexStringExplicitSize() {
+        let bv = BiftVector(hexString: "7A", withSize: 7)
+        XCTAssertEqual(bv.description, "1111010")
+    }
+    
+    func testInit_AcceptsTextString() {
+        let bv = BiftVector(textString: "7A")
+        XCTAssertEqual(bv.description, "0011011101000001")
+    }
+    
+    func testInit_AcceptsEmptyTextString() {
+        let bv = BiftVector(textString: "")
+        XCTAssertEqual(bv.description, "")
+    }
+    
+    func testInit_AcceptsNonAsciiString() {
+        let bv = BiftVector(textString: "🖖")
+        XCTAssertEqual(bv.description, "11110000100111111001011010010110")
+    }
+    
+
 }
 
 #if os(Linux)
