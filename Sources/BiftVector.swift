@@ -53,6 +53,7 @@ public struct BiftVector {
 
     // Bit storage uses words
     static fileprivate let N = 64
+    static fileprivate let WordMSb = UInt64.max - (UInt64.max >> 1)
     public typealias Word = UInt64
     fileprivate(set) public var words: [Word]
 
@@ -229,7 +230,11 @@ public struct BiftVector {
     }
 
     public func isSet(_ i: Int) -> Bool {
-        let (j, m) = indexOf(i)
+        let (j, m) = sliceIndexOf(i)
+        //let hexWord = String(words[j], radix: 16)
+        //let bitMask = String(m, radix: 16)
+        //print(self)
+        //debugPrint("isSet(\(i)) for word[\(j)] 0x\(hexWord) bitmask: 0x\(bitMask)")
         return (words[j] & m) != 0
     }
 
@@ -251,6 +256,28 @@ public struct BiftVector {
         return (o, 1 << m)
     }
 
+
+
+    /// Takes a bit index and returns the word bit is contained in and bitmask for word
+    ///
+    /// - Parameter i: bit index
+    /// - Returns: word index and mask inside that word
+    private func sliceIndexOf(_ i: Int) -> (Int, Word) {
+        assert(i >= 0)
+        assert(i < size)
+        let o = i / BiftVector.N
+        let s = (size / BiftVector.N)
+        let p = s - o
+
+        let m = Word(i - o*BiftVector.N)
+        let n = Word(size - s*BiftVector.N)
+        let j = n - m - 1
+
+        //debugPrint("\(i) o=\(o) p=\(p) m=\(m) n=\(n) j=\(j)")
+        return (p, 1 << j)
+    }
+
+
     static private func lookupHexNibbleBitstring(_ character: Character) -> String {
         assert("0123456789abcdef".characters.contains(character))
         var nibble = "0000"
@@ -263,7 +290,7 @@ public struct BiftVector {
             nibble = padding + convertedToBits
         }
 
-        debugPrint("\(character) -> \(nibble)")
+        //debugPrint("\(character) -> \(nibble)")
 
         return nibble
     }
@@ -299,7 +326,7 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
                 s += x.bitsToString(z)
             }
         }
-        debugPrint(s)
+        //debugPrint(s)
         return s
     }
 
@@ -331,7 +358,7 @@ extension String {
 // MARK: - Protocols
 
 extension BiftVector: Comparable {
-    
+
     public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
         // lazy way
         return lhs.debugDescription == rhs.debugDescription
@@ -345,8 +372,3 @@ extension BiftVector: Comparable {
         }
     }
 }
-
-
-
-
-

@@ -27,11 +27,11 @@ import XCTest
 @testable import BiftVector
 
 class BiftVectorTests: XCTestCase {
-    
+
     override func setUp() {
         super.setUp()
     }
-    
+
     func testInit_AcceptsSizeZero() {
         let bv = BiftVector(size: 0)
         XCTAssertEqual(bv.description, "")
@@ -41,12 +41,12 @@ class BiftVectorTests: XCTestCase {
         let bv = BiftVector(size: 33)
         XCTAssertEqual(bv.description, "000000000000000000000000000000000")
     }
-    
+
     func testInit_AcceptsSizeGreaterThan64() {
         let bv = BiftVector(size: 65)
         XCTAssertEqual(bv.description, "00000000000000000000000000000000000000000000000000000000000000000")
     }
-    
+
     func testDebugExtension_descriptionSizeOf1() {
         let bv = BiftVector(size: 1)
         XCTAssertEqual(bv.description, "0")
@@ -61,7 +61,7 @@ class BiftVectorTests: XCTestCase {
         let bv = BiftVector(size: 63)
         XCTAssertEqual(bv.description, "000000000000000000000000000000000000000000000000000000000000000")
     }
-    
+
     func testDebugExtension_descriptionSizeOf64() {
         let bv = BiftVector(size: 64)
         XCTAssertEqual(bv.description, "0000000000000000000000000000000000000000000000000000000000000000")
@@ -76,7 +76,7 @@ class BiftVectorTests: XCTestCase {
         let bv = BiftVector(bitString: "11111111011111111")
         XCTAssertEqual(bv.description, "11111111011111111")
     }
-    
+
     func testInit_ShouldTakeUIntValue() {
         let bv = BiftVector(uintVal: 8675309)
         XCTAssertEqual(bv.description, "0000000000000000000000000000000000000000100001000101111111101101")
@@ -101,7 +101,7 @@ class BiftVectorTests: XCTestCase {
         let bv = BiftVector(hexString: "0deadBEEF")
         XCTAssertEqual(bv.description, "000011011110101011011011111011101111")
     }
-    
+
     func testInit_AcceptsHexStringLargeImplicitSize() {
         let bv = BiftVector(hexString: "decafBADc0ffee600D")
         XCTAssertEqual(bv.description, "110111101100101011111011101011011100000011111111111011100110000000001101")
@@ -111,22 +111,22 @@ class BiftVectorTests: XCTestCase {
         let bv = BiftVector(hexString: "7A", withSize: 7)
         XCTAssertEqual(bv.description, "1111010")
     }
-    
+
     func testInit_AcceptsTextString() {
         let bv = BiftVector(textString: "7A")
         XCTAssertEqual(bv.description, "0011011101000001")
     }
-    
+
     func testInit_AcceptsEmptyTextString() {
         let bv = BiftVector(textString: "")
         XCTAssertEqual(bv.description, "")
     }
-    
+
     func testInit_AcceptsNonAsciiString() {
         let bv = BiftVector(textString: "🖖")
         XCTAssertEqual(bv.description, "11110000100111111001011010010110")
     }
-    
+
     func testEquatable_EqualTo() {
         let bv1 = BiftVector(hexString: "deadBEEF")
         let bv2 = BiftVector(hexString: "deadBEEF")
@@ -150,13 +150,13 @@ class BiftVectorTests: XCTestCase {
         let bv2 = BiftVector(uintVal: 127, size: 8)
         XCTAssertTrue(bv1 != bv2)
     }
-    
+
     func testComparable_LessThan() {
         let bv1 = BiftVector(uintVal: 127, size: 7)
         let bv2 = BiftVector(uintVal: 127, size: 8)
         XCTAssertTrue(bv1 < bv2)
     }
- 
+
     func testComparable_LessThan2() {
         let bv1 = BiftVector(uintVal: 127, size: 7)
         let bv2 = BiftVector(uintVal: 127, size: 7)
@@ -168,25 +168,55 @@ class BiftVectorTests: XCTestCase {
         let bv2 = BiftVector(uintVal: 128, size: 7)
         XCTAssertFalse(bv1 <= bv2, "Error on comparison of \(bv1) <= \(bv2)")
     }
-    
+
     func testComparable_LessThanOrEqual2() {
         let bv1 = BiftVector(uintVal: 127, size: 8)
         let bv2 = BiftVector(uintVal: 128, size: 8)
         XCTAssertTrue(bv1 <= bv2, "Error on comparison of \(bv1) <= \(bv2)")
     }
-    
+
     func testComparable_GreatThan() {
         let bv1 = BiftVector(uintVal: 255, size: 8)
         let bv2 = BiftVector(uintVal: 127, size: 8)
         XCTAssertTrue(bv1 > bv2)
     }
-    
+
     func testComparable_GreaterThanOrEqual() {
         let bv1 = BiftVector(uintVal: 127, size: 8)
         let bv2 = BiftVector(uintVal: 127, size: 8)
         XCTAssertTrue(bv1 >= bv2)
     }
-    
+
+    func testSlice_SingleBiftBitRead() {
+        let bv = BiftVector(hexString: "aecafBADc0ffee600DdecafBADc0ffee600D")
+        let size = bv.size
+
+        // MSBs (0xa)
+        let bitMSB0 = bv[size-1]
+        let bitMSB1 = bv[size-2]
+        let bitMSB2 = bv[size-3]
+        let bitMSB3 = bv[size-4]
+        XCTAssertTrue( (true, false, true, false) == (bitMSB0, bitMSB1, bitMSB2, bitMSB3),
+                       "(bitMSB0, bitMSB0, bitMSB0, bitMSB0) are (\(bitMSB0), \(bitMSB1), \(bitMSB2), \(bitMSB3))")
+        // LSBs (0xd)
+        let bit0 = bv[0]
+        let bit1 = bv[1]
+        let bit2 = bv[2]
+        let bit3 = bv[3]
+        XCTAssertTrue( (true, true, false, true) == (bit3, bit2, bit1, bit0),
+                       "(bit3, bit2, bit1, bit0) are (\(bit3), \(bit2), \(bit1), \(bit0))")
+    }
+
+    func testSlice_SingleBiftBitRead2() {
+        let bv = BiftVector(hexString: "7a")
+        let bit0 = bv[0]
+        let bit1 = bv[1]
+        let bit2 = bv[2]
+        let bit3 = bv[3]
+        XCTAssertTrue( (true, false, true, false) == (bit3, bit2, bit1, bit0),
+                       "(bit3, bit2, bit1, bit0) are (\(bit3), \(bit2), \(bit1), \(bit0))")
+    }
+
 
 }
 
