@@ -342,8 +342,8 @@ extension String {
 extension BiftVector : Equatable {
     
     public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
-        return
-            lhs.size == rhs.size
+        // lazy way
+        return lhs.debugDescription == rhs.debugDescription
     }
     
 }

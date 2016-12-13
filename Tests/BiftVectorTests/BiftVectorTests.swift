@@ -57,7 +57,6 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(bv.debugDescription, "0\nsize = 1")
     }
 
-    
     func testDebugExtension_descriptionSizeOf63() {
         let bv = BiftVector(size: 63)
         XCTAssertEqual(bv.description, "000000000000000000000000000000000000000000000000000000000000000")
@@ -85,7 +84,7 @@ class BiftVectorTests: XCTestCase {
 
     func testInit_ShouldTakeUIntValueWithSize() {
         let bv = BiftVector(uintVal: 8675309, size: 24)
-        XCTAssertEqual(bv.description, "100001000101111111101101")
+        XCTAssertEqual(bv.description,  "100001000101111111101101")
     }
 
     func testInit_ShouldTakeUIntValue2WithSize() {
@@ -132,16 +131,26 @@ class BiftVectorTests: XCTestCase {
         let bv1 = BiftVector(hexString: "deadBEEF")
         let bv2 = BiftVector(hexString: "deadBEEF")
         XCTAssertTrue(bv1 == bv2)
+    }
 
+    func testEquatable_EqualTo2() {
+        let bv1 = BiftVector(uintVal: 126, size: 7)
+        let bv2 = BiftVector(hexString: "fe", withSize: 7)
+        XCTAssertTrue(bv1 == bv2)
     }
 
     func testEquatable_NotEqualTo() {
         let bv1 = BiftVector(hexString: "deadBEEF")
         let bv2 = BiftVector(hexString: "decafbad")
         XCTAssertTrue(bv1 != bv2)
-        
     }
-    
+
+    func testEquatable_NotEqualTo2() {
+        let bv1 = BiftVector(uintVal: 127, size: 7)
+        let bv2 = BiftVector(uintVal: 127, size: 8)
+        XCTAssertTrue(bv1 != bv2)
+    }
+   
 
 }
 
