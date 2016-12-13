@@ -264,7 +264,7 @@ public struct BiftVector {
     /// - Returns: word index and mask inside that word
     private func sliceIndexOf(_ i: Int) -> (Int, Word) {
         assert(i >= 0)
-        assert(i < size)
+        assert(i < size, "Bit index [\(i)] out of range of \(self.debugDescription)")
         let o = i / BiftVector.N
         let s = (size / BiftVector.N)
         let p = s - o
@@ -331,9 +331,9 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
     }
 
     public var debugDescription: String {
-        var s = description
-        s += "\nsize = \(size)"
-        return s
+        let s = description
+        let t = "BiftVector(bitString: \"\(s)\") // size = \(size)"
+        return t
     }
 }
 

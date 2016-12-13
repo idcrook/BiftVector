@@ -54,7 +54,7 @@ class BiftVectorTests: XCTestCase {
 
     func testDebugDescriptionExtension_descriptionSizeOf1() {
         let bv = BiftVector(size: 1)
-        XCTAssertEqual(bv.debugDescription, "0\nsize = 1")
+        XCTAssertEqual(bv.debugDescription, "BiftVector(bitString: \"0\") // size = 1")
     }
 
     func testDebugExtension_descriptionSizeOf63() {
@@ -216,9 +216,18 @@ class BiftVectorTests: XCTestCase {
         XCTAssertTrue( (true, false, true, false) == (bit3, bit2, bit1, bit0),
                        "(bit3, bit2, bit1, bit0) are (\(bit3), \(bit2), \(bit1), \(bit0))")
     }
-
+    
+    // FIXME: Add throws for subscript out of range?
+//    func testSlice_SingleBiftBitReadOutOfRange() {
+//        let bv = BiftVector(uintVal: 127, size: 7)
+//        let index = 7
+//        var bit : Bool?
+//        XCTAssertThrowsError(try bit = bv[index])
+//    }
 
 }
+
+
 
 #if os(Linux)
 extension BiftVectorTests {
