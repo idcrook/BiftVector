@@ -128,6 +128,20 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(bv.description, "11110000100111111001011010010110")
     }
     
+    func testEquatable_EqualTo() {
+        let bv1 = BiftVector(hexString: "deadBEEF")
+        let bv2 = BiftVector(hexString: "deadBEEF")
+        XCTAssertTrue(bv1 == bv2)
+
+    }
+
+    func testEquatable_NotEqualTo() {
+        let bv1 = BiftVector(hexString: "deadBEEF")
+        let bv2 = BiftVector(hexString: "decafbad")
+        XCTAssertTrue(bv1 != bv2)
+        
+    }
+    
 
 }
 

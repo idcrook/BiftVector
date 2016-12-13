@@ -25,19 +25,6 @@
 
 // API
 //
-// Constructor
-//  - BiftVector(size: 0)
-//  - BiftVector(bitlist: [1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1])
-//  - BiftVector(bitstring: "1010010100101001")
-//  - BiftVector(intVal: 8675309)
-//  - BiftVector(intVal: 8675309, size: 24)
-//  - BiftVector(textString: "hello")
-//  - BiftVector(hexString: "decafBAD")
-//
-// Display
-//  - print(bv)
-//  - let d = bv.description
-//  - led dd = bv.debugDescription
 //  - let i = Int(bv)  // may return an array of Ints
 //
 // Accessing and setting bits / slices
@@ -58,6 +45,10 @@
 //  - bv1 <= bv2
 //  - bv1 >  bv2
 //  - bv1 >= bv2
+// 
+// Type Casting
+//  - let i = Int(bv)  // may return an array of Ints
+//  - let u = UInt64(bv)  // may return an array of UInt64
 //
 // // Add advance operations tier 2
 //
@@ -329,7 +320,7 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extensions, Built-in Types
 
 extension String {
     /// Utility function for BiftVector to truncate bitString to a given length
@@ -346,3 +337,19 @@ extension String {
     }
 
 }
+
+// MARK: - Protocols
+extension BiftVector : Equatable {
+    
+    public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
+        return
+            lhs.size == rhs.size
+    }
+    
+}
+
+
+
+
+
+
