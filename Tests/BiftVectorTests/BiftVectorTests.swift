@@ -150,7 +150,43 @@ class BiftVectorTests: XCTestCase {
         let bv2 = BiftVector(uintVal: 127, size: 8)
         XCTAssertTrue(bv1 != bv2)
     }
-   
+    
+    func testComparable_LessThan() {
+        let bv1 = BiftVector(uintVal: 127, size: 7)
+        let bv2 = BiftVector(uintVal: 127, size: 8)
+        XCTAssertTrue(bv1 < bv2)
+    }
+ 
+    func testComparable_LessThan2() {
+        let bv1 = BiftVector(uintVal: 127, size: 7)
+        let bv2 = BiftVector(uintVal: 127, size: 7)
+        XCTAssertFalse(bv1 < bv2)
+    }
+
+    func testComparable_LessThanOrEqual() {
+        let bv1 = BiftVector(uintVal: 127, size: 7)
+        let bv2 = BiftVector(uintVal: 128, size: 7)
+        XCTAssertFalse(bv1 <= bv2, "Error on comparison of \(bv1) <= \(bv2)")
+    }
+    
+    func testComparable_LessThanOrEqual2() {
+        let bv1 = BiftVector(uintVal: 127, size: 8)
+        let bv2 = BiftVector(uintVal: 128, size: 8)
+        XCTAssertTrue(bv1 <= bv2, "Error on comparison of \(bv1) <= \(bv2)")
+    }
+    
+    func testComparable_GreatThan() {
+        let bv1 = BiftVector(uintVal: 255, size: 8)
+        let bv2 = BiftVector(uintVal: 127, size: 8)
+        XCTAssertTrue(bv1 > bv2)
+    }
+    
+    func testComparable_GreaterThanOrEqual() {
+        let bv1 = BiftVector(uintVal: 127, size: 8)
+        let bv2 = BiftVector(uintVal: 127, size: 8)
+        XCTAssertTrue(bv1 >= bv2)
+    }
+    
 
 }
 

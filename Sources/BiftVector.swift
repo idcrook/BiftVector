@@ -25,8 +25,6 @@
 
 // API
 //
-//  - let i = Int(bv)  // may return an array of Ints
-//
 // Accessing and setting bits / slices
 //  - let bit_1_or_0 = bv[M]
 //  - let sliceBv = bv[M:N]
@@ -38,14 +36,6 @@
 //  - bvr = bv1 | bv2     // Bitwise Logical OR
 //  - bvr = ~bv1          // Bitwise negation
 //
-// BiftVector comparisons
-//  - bv1 == bv2
-//  - bv1 != bv2
-//  - bv1 <  bv2
-//  - bv1 <= bv2
-//  - bv1 >  bv2
-//  - bv1 >= bv2
-// 
 // Type Casting
 //  - let i = Int(bv)  // may return an array of Ints
 //  - let u = UInt64(bv)  // may return an array of UInt64
@@ -216,7 +206,6 @@ public struct BiftVector {
         self.init(hexString: hexString, size: size)
     }
 
-
     /// Set bit at index to 1
     ///
     /// - Parameter i: index of bit
@@ -310,6 +299,7 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
                 s += x.bitsToString(z)
             }
         }
+        debugPrint(s)
         return s
     }
 
@@ -339,15 +329,22 @@ extension String {
 }
 
 // MARK: - Protocols
-extension BiftVector : Equatable {
+
+extension BiftVector: Comparable {
     
     public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
         // lazy way
         return lhs.debugDescription == rhs.debugDescription
     }
-    
-}
 
+    public static func < (lhs: BiftVector, rhs: BiftVector) -> Bool {
+        if lhs.size != rhs.size {
+            return lhs.size < rhs.size
+        } else {
+            return lhs.description < rhs.description
+        }
+    }
+}
 
 
 
