@@ -253,6 +253,42 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(s, bv1.description)
     }
     
+    func testOperators_Complement() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = ~BiftVector(hexString: "08ce")
+        
+         XCTAssertEqual(bv1, bv2)
+    }
+
+    func testOperators_BitwiseLogicalOr() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = BiftVector(hexString: "08ce")
+        let bv3 = BiftVector(hexString: "ffff")
+        XCTAssertEqual(bv1 | bv2, bv3)
+    }
+
+    func testOperators_BitwiseLogicalAnd() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = BiftVector(hexString: "08ce")
+        let bv3 = ~BiftVector(hexString: "ffff")
+        XCTAssertEqual(bv1 & bv2, bv3)
+    }
+
+    func testOperators_BitwiseLogicalXor() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = BiftVector(hexString: "ffff")
+        let bv3 = BiftVector(hexString: "08ce")
+        XCTAssertEqual(bv1 ^ bv2, bv3)
+    }
+    
+    func testOperators_BitwiseMixture() {
+        let bv1 =  BiftVector(hexString: "bf731f731f731f731")
+        let bv2 =  BiftVector(hexString: "0ffffffffffffffff")
+        let bv3 =  BiftVector(hexString: "0f731f731f731f731")
+        let bv4 = bv1 ^ (bv2 | ~BiftVector(hexString: "bffffffffffffffff"))
+        let bv5 = ~bv3
+        XCTAssertEqual(bv4, bv5)
+    }
     
     
 }
