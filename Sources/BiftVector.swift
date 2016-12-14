@@ -24,13 +24,9 @@
 
 
 // API
+
 //
-// Accessing and setting bits / slices
-//  - let bit_1_or_0 = bv[M]
-//  - let sliceBv = bv[M:N]
-//  - for bit in biftvec { print ("\(bit)") }
-//
-// Logical opertions
+// Logical operations
 //  - bvr = bv1 ^ bv2     // Bitwise Logical XOR
 //  - bvr = bv1 & bv2     // Bitwise Logical AND
 //  - bvr = bv1 | bv2     // Bitwise Logical OR
@@ -228,6 +224,11 @@ public struct BiftVector {
         get { return isSet(i) }
         set { if newValue { set(i) } else { clear(i) } }
     }
+    
+//    public subscript (subRange: Range<Int>) -> Slice<BiftVector> {
+//        
+//    }
+    
 
     public func isSet(_ i: Int) -> Bool {
         let (j, m) = sliceIndexOf(i)
@@ -332,7 +333,7 @@ extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
 
     public var debugDescription: String {
         let s = description
-        let t = "BiftVector(bitString: \"\(s)\") // size = \(size)"
+        let t = "BiftVector(bitString: \"\(s)\")"
         return t
     }
 }
@@ -371,4 +372,25 @@ extension BiftVector: Comparable {
             return lhs.description < rhs.description
         }
     }
+}
+
+extension BiftVector: Collection {
+    // subscript() implemented in struct
+    
+    public var startIndex: Int {
+        return 0
+    }
+    
+    public var count: Int {
+        return self.size
+    }
+    
+    public var endIndex: Int {
+        return self.size
+    }
+    
+    public func index(after: Int) -> Int {
+        return after+1
+    }
+    
 }
