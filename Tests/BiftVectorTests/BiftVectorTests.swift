@@ -232,6 +232,13 @@ class BiftVectorTests: XCTestCase {
         let bv2BitsArray = Array(bv2[1..<8])
         XCTAssertEqual(bv1BitsArray, bv2BitsArray)
     }
+    
+    func testCollection_SliceCount() {
+        let bv = BiftVector(hexString: "7a")
+        let bvSlice = bv[0..<7]
+        let count = bvSlice.count
+        XCTAssertEqual(count, (0..<7).count)
+    }
 
     func testCollection_ForInRange() {
         let bv1 = BiftVector(hexString: "f731")
@@ -244,7 +251,6 @@ class BiftVectorTests: XCTestCase {
             }
         }
         XCTAssertEqual(s, bv1.description)
-
     }
     
     
