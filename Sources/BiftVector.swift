@@ -37,14 +37,17 @@
 
 public struct BiftVector {
 
-    // How man bits are in this
-    private(set) public var size: Int = 0
-
-    // Bit storage uses words
+    // Bit storage uses 64 bit words
     static fileprivate let N = 64
-    static fileprivate let WordMSb = UInt64.max - (UInt64.max >> 1)
     public typealias Word = UInt64
+    
+    /// How many **bits** are in this
+    fileprivate(set) public var size: Int = 0
+    
+    /// Location where bits are implemented / stores
     fileprivate(set) public var words: [Word]
+    
+    // A helper variable
     static fileprivate let allOnes = ~Word()
 
 
