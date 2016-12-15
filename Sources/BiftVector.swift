@@ -198,33 +198,45 @@ public struct BiftVector {
     }
     
     
+    /// Get UInt8 (bytes) of the bits
+    ///
+    /// - Returns: An array of the bytes
     public func toUInt8Array() -> Array<UInt8> {
         let totalBytes = self.bitCountToOctetCount()
-        let copyOfValue = self.words
-        print (copyOfValue)
+        
+        // Since the bits are stored reversed from UInt8 order, use a reversed bitorder copy
+        let bvBitString = self.description
+        let bv = BiftVector(bitString: String(bvBitString.characters.reversed()))
+        
         var array: [UInt8] = Array<UInt8>()
-        
-//        let a = copyOfValue.withUnsafeBufferPointer { buffer in
-//            buffer.baseAddress
-//        }
-//        print(a)
-        
-        let _ = copyOfValue.withUnsafeBytes { (ptr) in
+        let _ = bv.words.withUnsafeBytes { (ptr) in
             for i in 0..<totalBytes {
                 array.append(ptr[i])
             }
         }
+        return array
+    }
+    
+    /// Get UInt64 (64b words) of the bits
+    ///
+    /// - Returns: An array of the 64b words
+    public func toUInt64Array() -> Array<UInt64> {
+        let totalWords = BiftVector.bitCountToWordCount(size)
         
-//        let buffer = withUnsafePointer(to: &(copyOfValue)) { ptr in
-//            ptr.withMemoryRebound(to: UInt8.self, capacity: totalBytes) {
-//                UnsafeBufferPointer(start: $0, count: totalBytes)
-//            }
-//        }
-//        print(buffer)
-//        return Array(buffer).reversed()
+        // Since the bits are stored reversed from UInt8 order, use a reversed bitorder copy
+        let bvBitString = self.description
+        let bv = BiftVector(bitString: String(bvBitString.characters.reversed()))
+        
+        var array: [UInt64] = Array<UInt64>()
+        let _ = bv.words.withUnsafeBufferPointer { (ptr) in
+            for i in 0..<totalWords {
+                array.append(ptr[i])
+            }
+        }
         return array
     }
 
+    
     /// Set bit at index to 1
     ///
     /// - Parameter i: index of bit
