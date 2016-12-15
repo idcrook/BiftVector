@@ -253,7 +253,93 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(s, bv1.description)
     }
     
+    func testOperators_BitwiseComplement() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = ~BiftVector(hexString: "08ce")
+        
+         XCTAssertEqual(bv1, bv2)
+    }
+
+    func testOperators_BitwiseLogicalOr() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = BiftVector(hexString: "08ce")
+        let bv3 = BiftVector(hexString: "ffff")
+        XCTAssertEqual(bv1 | bv2, bv3)
+    }
+
+    func testOperators_BitwiseLogicalAnd() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = BiftVector(hexString: "08ce")
+        let bv3 = ~BiftVector(hexString: "ffff")
+        XCTAssertEqual(bv1 & bv2, bv3)
+    }
+
+    func testOperators_BitwiseLogicalXor() {
+        let bv1 = BiftVector(hexString: "f731")
+        let bv2 = BiftVector(hexString: "ffff")
+        let bv3 = BiftVector(hexString: "08ce")
+        XCTAssertEqual(bv1 ^ bv2, bv3)
+    }
     
+    func testOperators_BitwiseMixture() {
+        let bv1 =  BiftVector(hexString: "bf731f731f731f731")
+        let bv2 =  BiftVector(hexString: "0ffffffffffffffff")
+        let bv3 =  BiftVector(hexString: "0f731f731f731f731")
+        let bv4 = bv1 ^ (bv2 | ~BiftVector(hexString: "bffffffffffffffff"))
+        let bv5 = ~(bv2 & bv3)
+        XCTAssertEqual(bv4, bv5)
+    }
+    
+    
+    func testCast_UInt8Array() {
+        let bv = BiftVector(hexString: "7f01")
+        let n = bv.toUInt8Array()
+        let expectedValue = [UInt8(0x01), UInt8(0x7f)]
+        XCTAssertEqual(n, expectedValue)
+    }
+    
+
+    func testCast_UInt8ArrayLessThanOneByte() {
+        let bv = BiftVector(hexString: "7A", withSize: 7)
+        let n = bv.toUInt8Array()
+        let expectedValue = [UInt8(0x7A)]
+        XCTAssertEqual(n, expectedValue)
+    }
+
+    func testCast_UInt8Array64b() {
+        let bv = BiftVector(hexString: "f731f731f731f731")
+        let n = bv.toUInt8Array()
+        let expectedValue = [ UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+                              UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+                              ]
+        XCTAssertEqual(n, expectedValue)
+    }
+    
+    func testCast_UInt8ArrayMoreThan64b() {
+        let bv = BiftVector(hexString: "bf731f731f731f731")
+        let n = bv.toUInt8Array()
+        let expectedValue = [ UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+                              UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+                              UInt8(0x0b),
+                              ]
+        XCTAssertEqual(n, expectedValue)
+    }
+    
+    
+    func testCast_UInt64Array() {
+        let bv = BiftVector(hexString: "7f01")
+        let a = bv.toUInt64Array()
+        let expectedValue = [UInt64(0x7f01)]
+        XCTAssertEqual(a, expectedValue)
+    }
+
+    func testCast_UInt64ArrayMoreThan64b() {
+        let bv = BiftVector(hexString: "f731f731f731f730f731f731f731f731")
+        let a = bv.toUInt64Array()
+        let expectedValue = [0xf731f731f731f731 as UInt64, 0xf731f731f731f730 as UInt64]
+        XCTAssertEqual(a, expectedValue)
+    }
+
     
 }
 
