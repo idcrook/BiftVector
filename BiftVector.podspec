@@ -13,24 +13,26 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
                        This library provides bit vector objects and functions.
+
+                       See the project on GitHub.
+
                        DESC
 
   s.homepage         = "https://github.com/idcrook/BiftVector"
-  s.license          = { :type => "MIT", :file => "LICENSE.txt" }
+  s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = "David Crook"
-  s.source           = { :git => "https://github.com/idcrook/BiftVector.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/idcrook/BiftVector.git", :tag => "v#{s.version}" }
   # s.social_media_url = 'https://twitter.com/idcrook'
   s.social_media_url = ''
 
   # #s.osx.deployment_target = '10.10'
-  s.ios.deployment_target = "8.0"
-  s.osx.deployment_target = "10.9"
+  s.ios.deployment_target = "9.0"
+  s.osx.deployment_target = "10.11"
   s.watchos.deployment_target = "2.0"
   s.tvos.deployment_target = "9.0"
 
   # s.source_files = 'Sources/*.{swift,h}'
-  s.source_files  = "Sources/**/*"
+  s.source_files  = "Sources/**/*.swift"
   s.frameworks  = "Foundation"
-  
-end
 
+end

@@ -85,6 +85,25 @@ import BiftVector
 <!-- ``` -->
 <!-- -->
 
+##### Using REPL on macOS
+
+Point `swift` to the built Framwork. Here's how, assuming a successful build in XCode:
+
+``` bash
+$ swift -F `ls -trd ~/Library/Developer/Xcode/DerivedData/BiftVector-* | tail -1`/Build/Products/Debug
+Welcome to Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1). Type :help for assistance.
+  1> import BiftVector
+  2> let bv1 = BiftVector(hexString: "C0FFEE600DDECAFBAD")
+bv1: BiftVector.BiftVector = {
+  size = 72
+  words = 2 values {
+    [0] = 16092341889477902083
+    [1] = 181
+  }
+}
+  3> print (~bv1)
+001111110000000000010001100111111111001000100001001101010000010001010010
+```
 
 
 ### Cocoapods
@@ -140,6 +159,6 @@ There are some related Framework types, but all of them seem to be restricted to
 
 ## License
 
-This package is licensed under the [MIT License](LICENSE.txt).
+This package is licensed under the [MIT License](LICENSE).
 
 [examples]: https://github.com/idcrook/BiftVector/blob/master/EXAMPLES.md
