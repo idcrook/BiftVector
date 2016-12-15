@@ -341,6 +341,15 @@ class BiftVectorTests: XCTestCase {
     }
 
     
+    func testZ_Example1() {
+        let bv1 = ~BiftVector(size: 32)
+        let bv2 = BiftVector(hexString: "21350452")
+        let result = bv1 ^ bv2
+        let bv3 = BiftVector(hexString: "decafBAD")
+
+        XCTAssertEqual(result, bv3)
+    }
+    
 }
 
 
@@ -348,9 +357,55 @@ class BiftVectorTests: XCTestCase {
 #if os(Linux)
 extension BiftVectorTests {
     static var allTests : [(String, (BiftVectorTests) -> () throws -> Void)] {
-        // FIXME: Should have a complete list of test cases (for Linux)
+        // Handy one liner (on macOS) 😎
+        //     swift test -l | perl -pe 's|BiftVectorTests.BiftVectorTests/(.+)$|                ("$1", $1),|'
         return [
+            ("testCast_UInt64Array", testCast_UInt64Array),
+            ("testCast_UInt64ArrayMoreThan64b", testCast_UInt64ArrayMoreThan64b),
+            ("testCast_UInt8Array", testCast_UInt8Array),
+            ("testCast_UInt8Array64b", testCast_UInt8Array64b),
+            ("testCast_UInt8ArrayLessThanOneByte", testCast_UInt8ArrayLessThanOneByte),
+            ("testCast_UInt8ArrayMoreThan64b", testCast_UInt8ArrayMoreThan64b),
+            ("testCollection_ForInRange", testCollection_ForInRange),
+            ("testCollection_SliceCount", testCollection_SliceCount),
+            ("testCollection_SliceRange", testCollection_SliceRange),
+            ("testComparable_GreaterThanOrEqual", testComparable_GreaterThanOrEqual),
+            ("testComparable_GreatThan", testComparable_GreatThan),
+            ("testComparable_LessThan", testComparable_LessThan),
+            ("testComparable_LessThan2", testComparable_LessThan2),
+            ("testComparable_LessThanOrEqual", testComparable_LessThanOrEqual),
+            ("testComparable_LessThanOrEqual2", testComparable_LessThanOrEqual2),
+            ("testDebugDescriptionExtension_descriptionSizeOf1", testDebugDescriptionExtension_descriptionSizeOf1),
+            ("testDebugExtension_descriptionSizeOf1", testDebugExtension_descriptionSizeOf1),
+            ("testDebugExtension_descriptionSizeOf63", testDebugExtension_descriptionSizeOf63),
+            ("testDebugExtension_descriptionSizeOf64", testDebugExtension_descriptionSizeOf64),
+            ("testEquatable_EqualTo", testEquatable_EqualTo),
+            ("testEquatable_EqualTo2", testEquatable_EqualTo2),
+            ("testEquatable_NotEqualTo", testEquatable_NotEqualTo),
+            ("testEquatable_NotEqualTo2", testEquatable_NotEqualTo2),
+            ("testInit_AcceptsBitlist", testInit_AcceptsBitlist),
+            ("testInit_AcceptsBitstring", testInit_AcceptsBitstring),
+            ("testInit_AcceptsEmptyTextString", testInit_AcceptsEmptyTextString),
+            ("testInit_AcceptsHexStringExplicitSize", testInit_AcceptsHexStringExplicitSize),
+            ("testInit_AcceptsHexStringImplicitSize", testInit_AcceptsHexStringImplicitSize),
+            ("testInit_AcceptsHexStringImplicitSize2", testInit_AcceptsHexStringImplicitSize2),
+            ("testInit_AcceptsHexStringLargeImplicitSize", testInit_AcceptsHexStringLargeImplicitSize),
+            ("testInit_AcceptsNonAsciiString", testInit_AcceptsNonAsciiString),
+            ("testInit_AcceptsSizeGreaterThan64", testInit_AcceptsSizeGreaterThan64),
+            ("testInit_AcceptsSizeLessThan64", testInit_AcceptsSizeLessThan64),
             ("testInit_AcceptsSizeZero", testInit_AcceptsSizeZero),
+            ("testInit_AcceptsTextString", testInit_AcceptsTextString),
+            ("testInit_ShouldTakeUIntValue", testInit_ShouldTakeUIntValue),
+            ("testInit_ShouldTakeUIntValue2WithSize", testInit_ShouldTakeUIntValue2WithSize),
+            ("testInit_ShouldTakeUIntValueWithSize", testInit_ShouldTakeUIntValueWithSize),
+            ("testOperators_BitwiseComplement", testOperators_BitwiseComplement),
+            ("testOperators_BitwiseLogicalAnd", testOperators_BitwiseLogicalAnd),
+            ("testOperators_BitwiseLogicalOr", testOperators_BitwiseLogicalOr),
+            ("testOperators_BitwiseLogicalXor", testOperators_BitwiseLogicalXor),
+            ("testOperators_BitwiseMixture", testOperators_BitwiseMixture),
+            ("testSlice_SingleBiftBitRead", testSlice_SingleBiftBitRead),
+            ("testSlice_SingleBiftBitRead2", testSlice_SingleBiftBitRead2),
+            ("testZ_Example1", testZ_Example1)
         ]
     }
 }

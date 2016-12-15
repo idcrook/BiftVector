@@ -37,15 +37,18 @@
 
 public struct BiftVector {
 
-    // How man bits are in this
-    private(set) public var size: Int = 0
-
-    // Bit storage uses words
+    // Bit storage uses 64 bit words
     static fileprivate let N = 64
-    static fileprivate let WordMSb = UInt64.max - (UInt64.max >> 1)
     public typealias Word = UInt64
+    
+    /// How many **bits** are in this
+    fileprivate(set) public var size: Int = 0
+    
+    /// Location where bits are implemented / stores
     fileprivate(set) public var words: [Word]
-    private let allOnes = ~Word()
+    
+    // A helper variable
+    static fileprivate let allOnes = ~Word()
 
 
     /// Create an object that can hold `size` bits
@@ -84,7 +87,7 @@ public struct BiftVector {
     /// Initialize an object from a bit string
     ///
     /// - Parameter bitstring: String containing text characters 0 or 1
-    init (bitString: String ) {
+    public init (bitString: String ) {
         assert(bitString.characters.count >= 0)
 
         self.size = bitString.characters.count
@@ -104,7 +107,7 @@ public struct BiftVector {
     /// Initialize an object from an integer value
     ///
     /// - Parameter intVal: 64b integer used for initializing bit value
-    init (uintVal: UInt64, size: Int = BiftVector.N) {
+    public init (uintVal: UInt64, size: Int = BiftVector.N) {
         assert(size <= BiftVector.N && size > 0)
 
         var bitString = ""
@@ -128,7 +131,7 @@ public struct BiftVector {
     /// Initialize an object from string value
     ///
     /// - Parameter textString: String containing characters to form bit vector. Assumes UTF-8 encoding.
-    init (textString: String) {
+    public init (textString: String) {
         assert(textString.characters.count >= 0 )
 
         var bitString = ""
@@ -148,7 +151,7 @@ public struct BiftVector {
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     /// - Parameter size: Size of the new vector
-    init (hexString: String, size: Int) {
+    public init (hexString: String, size: Int) {
         assert(size > 0)
         assert(hexString.characters.count >= 0 )
 
@@ -175,7 +178,7 @@ public struct BiftVector {
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     /// - Parameter withSize: Number of bits for new vector to contain
-    init (hexString: String, withSize size: Int) {
+    public init (hexString: String, withSize size: Int) {
         assert(size > 0)
         assert(hexString.characters.count >= 0 )
 
@@ -185,7 +188,7 @@ public struct BiftVector {
     /// Convenience initializer
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
-    init (hexString: String) {
+    public init (hexString: String) {
         assert(hexString.characters.count >= 0 )
 
         var size: Int = BiftVector.N   // default implicit BiftVector size
@@ -276,7 +279,7 @@ public struct BiftVector {
             // Subtract 1 to turn it into a mask, and add the high bit back in.
             return mask | (mask - 1)
         } else {
-            return allOnes
+            return BiftVector.allOnes
         }
     }
     
@@ -348,7 +351,8 @@ public struct BiftVector {
     }
 }
 
-// MARK: - Debugging
+
+// MARK: - Extensions, including on Built-in Types
 
 extension BiftVector.Word {
     /// Utility function for a word: bitstring representation
@@ -365,33 +369,6 @@ extension BiftVector.Word {
         return s
     }
 }
-
-extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
-    public var description: String {
-        var s = ""
-        var z = size
-        for x in words {
-            if z > BiftVector.N {
-                z = z - BiftVector.N
-                s += x.bitsToString()
-            } else {
-                s += x.bitsToString(z)
-            }
-        }
-        //debugPrint(s)
-        return s
-    }
-
-    public var debugDescription: String {
-        let s = description
-        let t = "BiftVector(bitString: \"\(s)\")"
-        return t
-    }
-}
-
-// MARK: - Bitwise operations
-
-// MARK: - Extensions, Built-in Types
 
 extension String {
     /// Utility function for BiftVector to truncate bitString to a given length
@@ -411,6 +388,32 @@ extension String {
 
 // MARK: - Protocols
 
+extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        var s = ""
+        var z = size
+        for x in words {
+            if z > BiftVector.N {
+                z = z - BiftVector.N
+                s += x.bitsToString()
+            } else {
+                s += x.bitsToString(z)
+            }
+        }
+        //debugPrint(s)
+        return s
+    }
+    
+    public var debugDescription: String {
+        let s = description
+        let t = "BiftVector(bitString: \"\(s)\")"
+        return t
+    }
+}
+
+// MARK: Comparable
+
+
 extension BiftVector: Comparable {
 
     public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
@@ -426,6 +429,8 @@ extension BiftVector: Comparable {
         }
     }
 }
+
+// MARK: Collection
 
 extension BiftVector: Collection {
     // subscript() implemented in struct
@@ -446,6 +451,8 @@ extension BiftVector: Collection {
         return after+1
     }
 }
+
+// MARK: Bitwise operations
 
 extension BiftVector: BitwiseOperations {
     public static var allZeros: BiftVector {
