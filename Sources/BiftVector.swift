@@ -25,13 +25,6 @@
 
 // API
 
-//
-// Logical operations
-//  - bvr = bv1 ^ bv2     // Bitwise Logical XOR
-//  - bvr = bv1 & bv2     // Bitwise Logical AND
-//  - bvr = bv1 | bv2     // Bitwise Logical OR
-//  - bvr = ~bv1          // Bitwise negation
-//
 // Type Casting
 //  - let i = Int(bv)  // may return an array of Ints
 //  - let u = UInt64(bv)  // may return an array of UInt64
@@ -151,7 +144,6 @@ public struct BiftVector {
         self.init(bitString: bitString)
     }
 
-
     /// Initialize an object from hexadecimal string value
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
@@ -204,6 +196,34 @@ public struct BiftVector {
 
         self.init(hexString: hexString, size: size)
     }
+    
+    
+    public func toUInt8Array() -> Array<UInt8> {
+        let totalBytes = self.bitCountToOctetCount()
+        let copyOfValue = self.words
+        print (copyOfValue)
+        var array: [UInt8] = Array<UInt8>()
+        
+//        let a = copyOfValue.withUnsafeBufferPointer { buffer in
+//            buffer.baseAddress
+//        }
+//        print(a)
+        
+        let _ = copyOfValue.withUnsafeBytes { (ptr) in
+            for i in 0..<totalBytes {
+                array.append(ptr[i])
+            }
+        }
+        
+//        let buffer = withUnsafePointer(to: &(copyOfValue)) { ptr in
+//            ptr.withMemoryRebound(to: UInt8.self, capacity: totalBytes) {
+//                UnsafeBufferPointer(start: $0, count: totalBytes)
+//            }
+//        }
+//        print(buffer)
+//        return Array(buffer).reversed()
+        return array
+    }
 
     /// Set bit at index to 1
     ///
@@ -240,7 +260,7 @@ public struct BiftVector {
         let diff = words.count*BiftVector.N - size
         if diff > 0 {
             // Set the highest bit that's still valid.
-            let mask = 1 << Word(63 - diff)
+            let mask = 1 << Word(BiftVector.N - 1 - diff)
             // Subtract 1 to turn it into a mask, and add the high bit back in.
             return mask | (mask - 1)
         } else {
@@ -256,10 +276,15 @@ public struct BiftVector {
         //debugPrint("isSet(\(i)) for word[\(j)] 0x\(hexWord) bitmask: 0x\(bitMask)")
         return (words[j] & m) != 0
     }
+    
+    private func bitCountToOctetCount() -> Int {
+        let n = (size + (8-1)) / 8
+        return n
+    }
+
 
     static private func bitCountToWordCount(_ size: Int) -> Int {
         let n = (size + (N-1)) / N
-
         return n
     }
 
@@ -274,8 +299,6 @@ public struct BiftVector {
         let m = Word(i - o*BiftVector.N)
         return (o, 1 << m)
     }
-
-
 
     /// Takes a bit index and returns the word bit is contained in and bitmask for word
     ///
@@ -296,7 +319,6 @@ public struct BiftVector {
         return (p, 1 << j)
     }
 
-
     static private func lookupHexNibbleBitstring(_ character: Character) -> String {
         assert("0123456789abcdef".characters.contains(character))
         var nibble = "0000"
@@ -310,7 +332,6 @@ public struct BiftVector {
         }
 
         //debugPrint("\(character) -> \(nibble)")
-
         return nibble
     }
 }
