@@ -10,14 +10,19 @@ See [project kanban](https://github.com/idcrook/BiftVector/projects/1) for curre
 
 ## Examples
 
-```swift
-let bv1 = BiftVector(size: 100)
-let bv2 = ~bv1
-let result = bv1 ^ bv2
+More [examples here][examples].
 
-let bvSlice = result[2..<32]
-print ("Size of bvSlice = \(bvSlice.length)")
+```swift
+let bv1 = ~BiftVector(size: 32)
+let bv2 = BiftVector(hexString: "21350452")
+let result = bv1 ^ bv2
+let bv3 = BiftVector(hexString: "decafBAD")
+
+if (result == bv3) {
+    print("We've succeeded! 😎")
+}
 ```
+
 
 ## Compatibility
 
@@ -69,6 +74,19 @@ let package = Package(
 import BiftVector
 ```
 
+<!-- ##### Bringing up REPL using Swift PM -->
+<!-- Uncomment when this works on macOS and Linux -->
+<!-- ``` bash -->
+<!-- $ cd /path/to/checkout -->
+<!-- $ swift build -->
+<!-- $ swift -I.build/debug -L.build/debug -lBiftVector -->
+<!-- Welcome to Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1). Type :help for assistance. -->
+<!--   1> import BiftVector -->
+<!-- ``` -->
+<!-- -->
+
+
+
 ### Cocoapods
 
 TBD
@@ -108,7 +126,7 @@ Inspired by open source projects:
   - [BitVector project](https://pypi.python.org/pypi/BitVector) (Python)
   - Swift Algorithm Club [Bit Set](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Bit%20Set) (Swift)
 
-Named as a portmanteau word of `Biffed` and `Swift` that sounds close to `Bit`, forming into Vector.
+Named as a portmanteau word of `Bit` and `Swift` (sounds like `Biffed`) forming into Vector.
 
 ### Related packages
 
@@ -118,6 +136,10 @@ Searching through CocoaPods, I noticed
  - Bitter
  - BitByteStream
 
+There are some related Framework types, but all of them seem to be restricted to operating on single words (i.e., up to 64 bits)
+
 ## License
 
 This package is licensed under the [MIT License](LICENSE.txt).
+
+[examples]: https://github.com/idcrook/BiftVector/blob/master/EXAMPLES.md
