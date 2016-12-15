@@ -351,7 +351,8 @@ public struct BiftVector {
     }
 }
 
-// MARK: - Debugging
+
+// MARK: - Extensions, including on Built-in Types
 
 extension BiftVector.Word {
     /// Utility function for a word: bitstring representation
@@ -368,33 +369,6 @@ extension BiftVector.Word {
         return s
     }
 }
-
-extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
-    public var description: String {
-        var s = ""
-        var z = size
-        for x in words {
-            if z > BiftVector.N {
-                z = z - BiftVector.N
-                s += x.bitsToString()
-            } else {
-                s += x.bitsToString(z)
-            }
-        }
-        //debugPrint(s)
-        return s
-    }
-
-    public var debugDescription: String {
-        let s = description
-        let t = "BiftVector(bitString: \"\(s)\")"
-        return t
-    }
-}
-
-// MARK: - Bitwise operations
-
-// MARK: - Extensions, Built-in Types
 
 extension String {
     /// Utility function for BiftVector to truncate bitString to a given length
@@ -414,6 +388,32 @@ extension String {
 
 // MARK: - Protocols
 
+extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        var s = ""
+        var z = size
+        for x in words {
+            if z > BiftVector.N {
+                z = z - BiftVector.N
+                s += x.bitsToString()
+            } else {
+                s += x.bitsToString(z)
+            }
+        }
+        //debugPrint(s)
+        return s
+    }
+    
+    public var debugDescription: String {
+        let s = description
+        let t = "BiftVector(bitString: \"\(s)\")"
+        return t
+    }
+}
+
+// MARK: Comparable
+
+
 extension BiftVector: Comparable {
 
     public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
@@ -429,6 +429,8 @@ extension BiftVector: Comparable {
         }
     }
 }
+
+// MARK: Collection
 
 extension BiftVector: Collection {
     // subscript() implemented in struct
@@ -449,6 +451,8 @@ extension BiftVector: Collection {
         return after+1
     }
 }
+
+// MARK: Bitwise operations
 
 extension BiftVector: BitwiseOperations {
     public static var allZeros: BiftVector {
