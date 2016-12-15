@@ -45,7 +45,7 @@ public struct BiftVector {
     static fileprivate let WordMSb = UInt64.max - (UInt64.max >> 1)
     public typealias Word = UInt64
     fileprivate(set) public var words: [Word]
-    private let allOnes = ~Word()
+    static fileprivate let allOnes = ~Word()
 
 
     /// Create an object that can hold `size` bits
@@ -84,7 +84,7 @@ public struct BiftVector {
     /// Initialize an object from a bit string
     ///
     /// - Parameter bitstring: String containing text characters 0 or 1
-    init (bitString: String ) {
+    public init (bitString: String ) {
         assert(bitString.characters.count >= 0)
 
         self.size = bitString.characters.count
@@ -104,7 +104,7 @@ public struct BiftVector {
     /// Initialize an object from an integer value
     ///
     /// - Parameter intVal: 64b integer used for initializing bit value
-    init (uintVal: UInt64, size: Int = BiftVector.N) {
+    public init (uintVal: UInt64, size: Int = BiftVector.N) {
         assert(size <= BiftVector.N && size > 0)
 
         var bitString = ""
@@ -128,7 +128,7 @@ public struct BiftVector {
     /// Initialize an object from string value
     ///
     /// - Parameter textString: String containing characters to form bit vector. Assumes UTF-8 encoding.
-    init (textString: String) {
+    public init (textString: String) {
         assert(textString.characters.count >= 0 )
 
         var bitString = ""
@@ -148,7 +148,7 @@ public struct BiftVector {
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     /// - Parameter size: Size of the new vector
-    init (hexString: String, size: Int) {
+    public init (hexString: String, size: Int) {
         assert(size > 0)
         assert(hexString.characters.count >= 0 )
 
@@ -175,7 +175,7 @@ public struct BiftVector {
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     /// - Parameter withSize: Number of bits for new vector to contain
-    init (hexString: String, withSize size: Int) {
+    public init (hexString: String, withSize size: Int) {
         assert(size > 0)
         assert(hexString.characters.count >= 0 )
 
@@ -185,7 +185,7 @@ public struct BiftVector {
     /// Convenience initializer
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
-    init (hexString: String) {
+    public init (hexString: String) {
         assert(hexString.characters.count >= 0 )
 
         var size: Int = BiftVector.N   // default implicit BiftVector size
@@ -276,7 +276,7 @@ public struct BiftVector {
             // Subtract 1 to turn it into a mask, and add the high bit back in.
             return mask | (mask - 1)
         } else {
-            return allOnes
+            return BiftVector.allOnes
         }
     }
     
