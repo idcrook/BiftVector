@@ -25,13 +25,6 @@
 
 // API
 
-//
-// Logical operations
-//  - bvr = bv1 ^ bv2     // Bitwise Logical XOR
-//  - bvr = bv1 & bv2     // Bitwise Logical AND
-//  - bvr = bv1 | bv2     // Bitwise Logical OR
-//  - bvr = ~bv1          // Bitwise negation
-//
 // Type Casting
 //  - let i = Int(bv)  // may return an array of Ints
 //  - let u = UInt64(bv)  // may return an array of UInt64
@@ -44,14 +37,19 @@
 
 public struct BiftVector {
 
-    // How man bits are in this
-    private(set) public var size: Int = 0
-
-    // Bit storage uses words
+    // Bit storage uses 64 bit words
     static fileprivate let N = 64
-    static fileprivate let WordMSb = UInt64.max - (UInt64.max >> 1)
     public typealias Word = UInt64
+    
+    /// How many **bits** are in this
+    fileprivate(set) public var size: Int = 0
+    
+    /// Location where bits are implemented / stores
     fileprivate(set) public var words: [Word]
+    
+    // A helper variable
+    static fileprivate let allOnes = ~Word()
+
 
     /// Create an object that can hold `size` bits
     ///
@@ -89,7 +87,7 @@ public struct BiftVector {
     /// Initialize an object from a bit string
     ///
     /// - Parameter bitstring: String containing text characters 0 or 1
-    init (bitString: String ) {
+    public init (bitString: String ) {
         assert(bitString.characters.count >= 0)
 
         self.size = bitString.characters.count
@@ -109,7 +107,7 @@ public struct BiftVector {
     /// Initialize an object from an integer value
     ///
     /// - Parameter intVal: 64b integer used for initializing bit value
-    init (uintVal: UInt64, size: Int = BiftVector.N) {
+    public init (uintVal: UInt64, size: Int = BiftVector.N) {
         assert(size <= BiftVector.N && size > 0)
 
         var bitString = ""
@@ -133,7 +131,7 @@ public struct BiftVector {
     /// Initialize an object from string value
     ///
     /// - Parameter textString: String containing characters to form bit vector. Assumes UTF-8 encoding.
-    init (textString: String) {
+    public init (textString: String) {
         assert(textString.characters.count >= 0 )
 
         var bitString = ""
@@ -149,12 +147,11 @@ public struct BiftVector {
         self.init(bitString: bitString)
     }
 
-
     /// Initialize an object from hexadecimal string value
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     /// - Parameter size: Size of the new vector
-    init (hexString: String, size: Int) {
+    public init (hexString: String, size: Int) {
         assert(size > 0)
         assert(hexString.characters.count >= 0 )
 
@@ -181,7 +178,7 @@ public struct BiftVector {
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     /// - Parameter withSize: Number of bits for new vector to contain
-    init (hexString: String, withSize size: Int) {
+    public init (hexString: String, withSize size: Int) {
         assert(size > 0)
         assert(hexString.characters.count >= 0 )
 
@@ -191,7 +188,7 @@ public struct BiftVector {
     /// Convenience initializer
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
-    init (hexString: String) {
+    public init (hexString: String) {
         assert(hexString.characters.count >= 0 )
 
         var size: Int = BiftVector.N   // default implicit BiftVector size
@@ -202,7 +199,47 @@ public struct BiftVector {
 
         self.init(hexString: hexString, size: size)
     }
+    
+    
+    /// Get UInt8 (bytes) of the bits
+    ///
+    /// - Returns: An array of the bytes
+    public func toUInt8Array() -> Array<UInt8> {
+        let totalBytes = self.bitCountToOctetCount()
+        
+        // Since the bits are stored reversed from UInt8 order, use a reversed bitorder copy
+        let bvBitString = self.description
+        let bv = BiftVector(bitString: String(bvBitString.characters.reversed()))
+        
+        var array: [UInt8] = Array<UInt8>()
+        let _ = bv.words.withUnsafeBytes { (ptr) in
+            for i in 0..<totalBytes {
+                array.append(ptr[i])
+            }
+        }
+        return array
+    }
+    
+    /// Get UInt64 (64b words) of the bits
+    ///
+    /// - Returns: An array of the 64b words
+    public func toUInt64Array() -> Array<UInt64> {
+        let totalWords = BiftVector.bitCountToWordCount(size)
+        
+        // Since the bits are stored reversed from UInt8 order, use a reversed bitorder copy
+        let bvBitString = self.description
+        let bv = BiftVector(bitString: String(bvBitString.characters.reversed()))
+        
+        var array: [UInt64] = Array<UInt64>()
+        let _ = bv.words.withUnsafeBufferPointer { (ptr) in
+            for i in 0..<totalWords {
+                array.append(ptr[i])
+            }
+        }
+        return array
+    }
 
+    
     /// Set bit at index to 1
     ///
     /// - Parameter i: index of bit
@@ -219,17 +256,33 @@ public struct BiftVector {
         words[j] &= ~m
     }
 
-    //
     public subscript(i: Int) -> Bool {
         get { return isSet(i) }
         set { if newValue { set(i) } else { clear(i) } }
     }
-    
-//    public subscript (subRange: Range<Int>) -> Slice<BiftVector> {
-//        
-//    }
-    
 
+    /*
+     If the size is not a multiple of N, then we have to clear out the bits
+     that we're not using, or bitwise operations between two differently sized
+     BitSets will go wrong.
+     */
+    fileprivate mutating func clearUnusedBits() {
+        words[words.count - 1] &= lastWordMask()
+    }
+    
+    /* Returns a mask that has 1s for all bits that are in the last word. */
+    private func lastWordMask() -> Word {
+        let diff = words.count*BiftVector.N - size
+        if diff > 0 {
+            // Set the highest bit that's still valid.
+            let mask = 1 << Word(BiftVector.N - 1 - diff)
+            // Subtract 1 to turn it into a mask, and add the high bit back in.
+            return mask | (mask - 1)
+        } else {
+            return BiftVector.allOnes
+        }
+    }
+    
     public func isSet(_ i: Int) -> Bool {
         let (j, m) = sliceIndexOf(i)
         //let hexWord = String(words[j], radix: 16)
@@ -238,10 +291,15 @@ public struct BiftVector {
         //debugPrint("isSet(\(i)) for word[\(j)] 0x\(hexWord) bitmask: 0x\(bitMask)")
         return (words[j] & m) != 0
     }
+    
+    private func bitCountToOctetCount() -> Int {
+        let n = (size + (8-1)) / 8
+        return n
+    }
+
 
     static private func bitCountToWordCount(_ size: Int) -> Int {
         let n = (size + (N-1)) / N
-
         return n
     }
 
@@ -256,8 +314,6 @@ public struct BiftVector {
         let m = Word(i - o*BiftVector.N)
         return (o, 1 << m)
     }
-
-
 
     /// Takes a bit index and returns the word bit is contained in and bitmask for word
     ///
@@ -278,7 +334,6 @@ public struct BiftVector {
         return (p, 1 << j)
     }
 
-
     static private func lookupHexNibbleBitstring(_ character: Character) -> String {
         assert("0123456789abcdef".characters.contains(character))
         var nibble = "0000"
@@ -292,12 +347,12 @@ public struct BiftVector {
         }
 
         //debugPrint("\(character) -> \(nibble)")
-
         return nibble
     }
 }
 
-// MARK: - Debugging
+
+// MARK: - Extensions, including on Built-in Types
 
 extension BiftVector.Word {
     /// Utility function for a word: bitstring representation
@@ -314,31 +369,6 @@ extension BiftVector.Word {
         return s
     }
 }
-
-extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
-    public var description: String {
-        var s = ""
-        var z = size
-        for x in words {
-            if z > BiftVector.N {
-                z = z - BiftVector.N
-                s += x.bitsToString()
-            } else {
-                s += x.bitsToString(z)
-            }
-        }
-        //debugPrint(s)
-        return s
-    }
-
-    public var debugDescription: String {
-        let s = description
-        let t = "BiftVector(bitString: \"\(s)\")"
-        return t
-    }
-}
-
-// MARK: - Extensions, Built-in Types
 
 extension String {
     /// Utility function for BiftVector to truncate bitString to a given length
@@ -358,6 +388,32 @@ extension String {
 
 // MARK: - Protocols
 
+extension BiftVector: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        var s = ""
+        var z = size
+        for x in words {
+            if z > BiftVector.N {
+                z = z - BiftVector.N
+                s += x.bitsToString()
+            } else {
+                s += x.bitsToString(z)
+            }
+        }
+        //debugPrint(s)
+        return s
+    }
+    
+    public var debugDescription: String {
+        let s = description
+        let t = "BiftVector(bitString: \"\(s)\")"
+        return t
+    }
+}
+
+// MARK: Comparable
+
+
 extension BiftVector: Comparable {
 
     public static func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
@@ -373,6 +429,8 @@ extension BiftVector: Comparable {
         }
     }
 }
+
+// MARK: Collection
 
 extension BiftVector: Collection {
     // subscript() implemented in struct
@@ -392,5 +450,56 @@ extension BiftVector: Collection {
     public func index(after: Int) -> Int {
         return after+1
     }
+}
+
+// MARK: Bitwise operations
+
+extension BiftVector: BitwiseOperations {
+    public static var allZeros: BiftVector {
+        return BiftVector(size: BiftVector.N)
+    }
+    
+    static private func copyLargest(_ lhs: BiftVector, _ rhs: BiftVector) -> BiftVector {
+        return (lhs.words.count > rhs.words.count) ? lhs : rhs
+    }
+    
+    static public func | (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
+        var out = copyLargest(lhs, rhs)
+        let n = [lhs.words.count, rhs.words.count].min()!
+        for i in 0..<n {
+            out.words[i] = lhs.words[i] | rhs.words[i]
+        }
+        return out
+    }
+    
+    // Returns the intersection of bits set in the two arguments.
+    static public func & (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
+        let return_size = (lhs.size > rhs.size) ? lhs.size : rhs.size
+        var out = BiftVector(size: return_size)
+        let n = [lhs.words.count, rhs.words.count].min()!
+        for i in 0..<n {
+            out.words[i] = lhs.words[i] & rhs.words[i]
+        }
+        return out
+    }
+    
+    static public func ^ (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
+        var out = copyLargest(lhs, rhs)
+        let n = [lhs.words.count, rhs.words.count].min()!
+        for i in 0..<n {
+            out.words[i] = lhs.words[i] ^ rhs.words[i]
+        }
+        return out
+    }
+    
+    static prefix public func ~ (rhs: BiftVector) -> BiftVector {
+        var out = BiftVector(size: rhs.size)
+        for i in 0..<rhs.words.count {
+            out.words[i] = ~rhs.words[i]
+        }
+        out.clearUnusedBits()
+        return out
+    }
     
 }
+
