@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# ----- Check for dependencies
+
+JAZZY=$(which jazzy)
+if [ $? != 0 ]; then
+    echo -e "Jazzy is required to generate documentation. Install it with:\n"
+    echo -e "    gem install jazzy\n"
+    exit
+fi
+echo "Using jazzy: $JAZZY"
+
+# ----- Commandline options
+
+if [ "$BRANCH" == "" ]; then
+  BRANCH=$([ "$1" == "" ] && echo "master" || echo "$1")
+fi
+
+if [ "$OUTPUT_PATH" == "" ]; then
+  OUTPUT_PATH=$([ "$2" == "" ] && echo "docs/output/$BRANCH" || echo "$2")
+fi
+
+# ----- Configuration
+
+ORGANISATION=idcrook
+NAME=BiftVector
+TMP=docs/tmp
+GITHUB=https://github.com/$ORGANISATION/$NAME
+URL=http://$ORGANISATION.github.io/$NAME
+
+PREPROC=.scripts/doc-preprocessor
+
+# ----- Setup and generate docs
+
+# Clean $TMP folder
+if [ -d "$TMP" ]; then rm -rf "$TMP"; fi
+mkdir -p $TMP/{compile,docs,api}
+
+# cp docs/*.md $TMP/api/
+
+# Split the README into sections
+$PREPROC README.md "$TMP/docs/Installation.md" --section "Installation" --title "Installation"
+$PREPROC README.md "$TMP/docs/Examples.md" --section "Examples" --title "Examples"
+$PREPROC README.md "$TMP/docs/Development.md" --section "Development" --title "Development"
+$PREPROC README.md "$TMP/docs/Credits.md" --section "Credits" --title "Credits"
+$PREPROC README.md "$TMP/compile/intro.md" --section "Introduction"
+
+# Copy remaining root docs
+$PREPROC .github/CONTRIBUTING.md "$TMP/docs/Contributing.md"
+$PREPROC LICENSE "$TMP/docs/License.md" --title "License"
+
+# Copy over the Getting started guide
+$PREPROC "docs/Getting Started Guide.md" "$TMP/docs/Getting Started Guide.md"
+
+# Create the documentation landing page by combining:
+#
+# - docs/templates/heading.md
+# - README.md#introduction
+# - docs/templates/toc.md
+#
+cat docs/templates/heading.md $TMP/compile/intro.md docs/templates/toc.md > $TMP/compile/readme-raw.md
+$PREPROC "$TMP/compile/readme-raw.md" "$TMP/compile/README.md"
+cp $TMP/compile/README.md $TMP/api/Documentation.md
+
+# Compile our Docs/tmp + generate API docs using jazzy
+jazzy \
+  --config .jazzy.json \
+  --clean \
+  --output "$OUTPUT_PATH" \
+  --module-version "$BRANCH" \
+  --dash_url "$URL/$BRANCH/docsets/$NAME.xml" \
+  --root-url "$URL/$BRANCH/" \
+  --github_url "$GITHUB" \
+  --github-file-prefix "$GITHUB/tree/$BRANCH"
+
+cp docs/img/* $OUTPUT_PATH/img/

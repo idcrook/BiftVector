@@ -1,0 +1,36 @@
+{
+  "xcodebuild_arguments": ["-project", "BiftVector.xcodeproj", "-scheme", "BiftVector-macOS"],
+  "swift_version": "3.0.2",
+  "author": "BiftVector",
+  "author_url": "https://github.com/idcrook/BiftVector",
+  "module": "BiftVector",
+  "readme": "docs/tmp/compile/README.md",
+  "theme": "docs/jazzy-theme/",
+
+  "documentation": "docs/tmp/docs/*.md",
+  "abstract": "docs/tmp/api/*.md",
+
+  "custom_categories": [{
+    "name": "Documentation",
+    "children": [
+      "Getting Started Guide",
+      "Installation",
+      "Examples",
+      "Contributing",
+      "Development",
+      "Credits",
+      "License"
+    ]
+  }, {
+    "name": "Main",
+    "children": [
+      "BiftVector"
+    ]
+  }],
+
+  "string-replacements": {
+    "docs/img": "img",
+    "http://idcrook.github.io/BiftVector/master/getting-started-guide.html": "getting-started-guide.html",
+    "#contributing": "contributing.html"
+  }
+}
