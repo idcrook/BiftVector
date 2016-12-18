@@ -40,6 +40,7 @@ mkdir -p $TMP/{compile,docs,api}
 
 # Split the README into sections
 $PREPROC README.md "$TMP/docs/Installation.md" --section "Installation" --title "Installation"
+$PREPROC README.md "$TMP/docs/Goals And Features.md" --section "Goals And Features" --title "Goals And Features"
 $PREPROC README.md "$TMP/docs/Examples.md" --section "Examples" --title "Examples"
 $PREPROC README.md "$TMP/docs/Development.md" --section "Development" --title "Development"
 $PREPROC README.md "$TMP/docs/Credits.md" --section "Credits" --title "Credits"

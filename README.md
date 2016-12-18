@@ -18,9 +18,8 @@ Refer to the [Documentation](http://idcrook.github.io/BiftVector/) for more.
 
 # Examples
 
-More [examples here][examples].
-
 ```swift
+import BiftVector
 let bv1 = ~BiftVector(size: 32)
 let bv2 = BiftVector(hexString: "21350452")
 let result = bv1 ^ bv2
@@ -30,11 +29,13 @@ if (result == bv3) {
     print("We've succeeded! 😎")
 }
 ```
-# Goals and Features
+
+# Goals And Features
 
 The [project wiki](https://github.com/idcrook/BiftVector/wiki) has additional features listed.
 
 Main goals
+
   - Intends to support "arbitrarily-sized" bit vectors
   - Include full complement of functions and operators
   - Documented API
@@ -42,6 +43,7 @@ Main goals
   - Use continuous integration and TDD (Test Driven Development) practices
 
 Additional goals
+
   - Be performant and memory efficient
   - Include a CLI wrapper as a demo application
   - Include a Swift Playground to as another demo
@@ -71,22 +73,20 @@ let package = Package(
 )
 ```
 
+## Cocoapods
+
+not yet officially released
+
+## Carthage
+
+not yet officially released
+
 ### Usage
 
 ```swift
 import BiftVector
 ```
 
-<!-- ##### Bringing up REPL using Swift PM -->
-<!-- Uncomment when this works on macOS and Linux -->
-<!-- ``` bash -->
-<!-- $ cd /path/to/checkout -->
-<!-- $ swift build -->
-<!-- $ swift -I.build/debug -L.build/debug -lBiftVector -->
-<!-- Welcome to Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1). Type :help for assistance. -->
-<!--   1> import BiftVector -->
-<!-- ``` -->
-<!-- -->
 
 #### Using REPL on macOS
 
@@ -108,12 +108,21 @@ bv1: BiftVector.BiftVector = {
 001111110000000000010001100111111111001000100001001101010000010001010010
 ```
 
-TBD
+The above loads the framework that XCode project builds.
 
-## Cocoapods
+#### Bringing up REPL using Swift PM
 
-TBD
+This is still not working "out of the box" in Swift 3.0.2 release (which came bundled with XCode 8.2)
 
+<!-- Uncomment when this works on macOS and Linux -->
+<!-- ``` bash -->
+<!-- $ cd /path/to/checkout -->
+<!-- $ swift build -->
+<!-- $ swift -I.build/debug -L.build/debug -lBiftVector -->
+<!-- Welcome to Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1). Type :help for assistance. -->
+<!--   1> import BiftVector -->
+<!-- ``` -->
+<!-- -->
 
 # Development
 
@@ -125,15 +134,17 @@ To run test suite from command line:
 swift test
 ```
 
-`swift test` runs `swift build` if needed, and works both under macOS and Linux.
+This build the package source if needed, and runs the test suite, reporting on any failures encounter.  The project embraces TDD (Test-Driven Development) which means all tests are required to pass.
+
+
 
 # Credits
 
-## Author
+## Author(s)
 
-David Crook - @idcrook
+David Crook - [@idcrook](https://github.com/idcrook)
 
-## How this was created
+## How this library was created
 
 In macOS
 
@@ -170,5 +181,3 @@ There are some related Framework types, but all of them seem to be restricted to
 # License
 
 This package is licensed under the [MIT License](LICENSE).
-
-[examples]: https://github.com/idcrook/BiftVector/blob/master/EXAMPLES.md

@@ -13,6 +13,7 @@
   "custom_categories": [{
     "name": "Documentation",
     "children": [
+      "Goals And Features",
       "Getting Started Guide",
       "Installation",
       "Examples",

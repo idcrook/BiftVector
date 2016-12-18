@@ -22,19 +22,25 @@
  *  SOFTWARE.
  */
 
-
-// API
-
-// Type Casting
-//  - let i = Int(bv)  // may return an array of Ints
-//  - let u = UInt64(bv)  // may return an array of UInt64
-//
-// // Add advance operations tier 2
-//
-
 //import Foundation
 
-
+/// A library for bit vectors (also called bit arrays) 
+///
+/// ```swift
+/// import BiftVector
+/// let bv1 = ~BiftVector(size: 32)
+/// let bv2 = BiftVector(uintVal: 557122642, size: 32)
+/// let result = bv1 ^ bv2
+/// let bv3 = BiftVector(hexString: "decafBAD")
+///
+/// if (result == bv3) {
+///     print("We've succeeded! 😎")
+/// }
+///
+/// var bv4 = BiftVector(textString: "Ain't no 🌞 when she's gone")
+/// let bv5 = BiftVector(bitString: "01100001011101110110000101111001")
+/// bv4[0..<32] = bv5
+/// ```
 public struct BiftVector {
 
     // Bit storage uses 64 bit words
