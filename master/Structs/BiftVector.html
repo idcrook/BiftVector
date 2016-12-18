@@ -19,7 +19,7 @@
         <a class='header-link' href='../index.html'>
           BiftVector Docs
         </a>
-         (80% documented)
+         (97% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -49,6 +49,9 @@
           <li class='nav-group-name'>
             <a class='nav-group-name-link' href='../Documentation.html'>Documentation</a>
             <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='../goals-and-features.html'>Goals And Features</a>
+              </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='../getting-started-guide.html'>Getting Started Guide</a>
               </li>
@@ -87,7 +90,28 @@
         <section class='section'>
           <div class='section-content'>
             <h1>BiftVector</h1>
-            <p>Undocumented</p>
+              <div class='declaration'>
+                <div class='language'>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BiftVector</span></code></pre>
+
+                </div>
+              </div>
+            <p>A library for bit vectors (also called bit arrays) </p>
+
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">BiftVector</span>
+<span class="k">let</span> <span class="nv">bv1</span> <span class="o">=</span> <span class="o">~</span><span class="kt">BiftVector</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">bv2</span> <span class="o">=</span> <span class="kt">BiftVector</span><span class="p">(</span><span class="nv">uintVal</span><span class="p">:</span> <span class="mi">557122642</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">bv1</span> <span class="o">^</span> <span class="n">bv2</span>
+<span class="k">let</span> <span class="nv">bv3</span> <span class="o">=</span> <span class="kt">BiftVector</span><span class="p">(</span><span class="nv">hexString</span><span class="p">:</span> <span class="s">"decafBAD"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">bv3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"We've succeeded! 😎"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">bv4</span> <span class="o">=</span> <span class="kt">BiftVector</span><span class="p">(</span><span class="nv">textString</span><span class="p">:</span> <span class="s">"Ain't no 🌞 when she's gone"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">bv5</span> <span class="o">=</span> <span class="kt">BiftVector</span><span class="p">(</span><span class="nv">bitString</span><span class="p">:</span> <span class="s">"01100001011101110110000101111001"</span><span class="p">)</span>
+<span class="n">bv4</span><span class="p">[</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">bv5</span>
+</code></pre>
 
           </div>
         </section>
@@ -122,7 +146,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L45" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L51" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -153,7 +177,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L48" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L54" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -210,7 +234,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L57-L65" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L63-L71" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -267,7 +291,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L70-L85" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L76-L91" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -324,7 +348,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L90-L105" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L96-L111" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -381,7 +405,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L110-L129" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L116-L135" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -438,7 +462,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L134-L148" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L140-L154" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -514,7 +538,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L154-L175" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L160-L181" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -590,7 +614,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L181-L186" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L187-L192" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -647,7 +671,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L191-L201" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L197-L207" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -689,7 +713,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L207-L221" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L213-L227" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -731,7 +755,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L226-L240" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L232-L246" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -788,7 +812,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L246-L249" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L252-L255" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -845,7 +869,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L254-L257" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L260-L263" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -866,9 +890,17 @@
                         <p>Undocumented</p>
 
                       </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BiftVector</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L286-L293" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L292-L299" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -940,7 +972,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L362-L370" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L368-L376" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -974,7 +1006,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L392-L405" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L398-L411" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1004,7 +1036,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L407-L411" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L413-L417" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1071,7 +1103,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L419-L422" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L425-L428" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1134,7 +1166,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L424-L430" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L430-L436" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1168,7 +1200,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L438-L440" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L444-L446" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1198,7 +1230,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L442-L444" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L448-L450" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1228,7 +1260,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L446-L448" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L452-L454" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1283,7 +1315,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L450-L452" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L456-L458" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1317,7 +1349,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L458-L460" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L464-L466" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1347,7 +1379,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L466-L473" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L472-L479" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1377,7 +1409,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L476-L484" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L482-L490" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1407,7 +1439,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L486-L493" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L492-L499" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1437,7 +1469,7 @@
                       </div>
                       <div class="slightly-smaller">
                         
-                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L495-L502" class="button">Show on GitHub</a>
+                          <a href="https://github.com/idcrook/BiftVector/tree/master/Sources/BiftVector.swift#L501-L508" class="button">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

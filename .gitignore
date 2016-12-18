@@ -1,2 +1,4 @@
 vendor
 BiftVector
+BiftVector.xcodeproj/
+.build/

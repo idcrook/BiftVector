@@ -18,7 +18,7 @@
         <a class='header-link' href='index.html'>
           BiftVector Docs
         </a>
-         (80% documented)
+         (97% documented)
       </p>
     
         <p class='header-col header-col--secondary'>
@@ -48,6 +48,9 @@
           <li class='nav-group-name'>
             <a class='nav-group-name-link' href='Documentation.html'>Documentation</a>
             <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='goals-and-features.html'>Goals And Features</a>
+              </li>
               <li class='nav-group-task'>
                 <a class='nav-group-task-link' href='getting-started-guide.html'>Getting Started Guide</a>
               </li>
@@ -101,29 +104,15 @@
     <span class="p">]</span>
 <span class="p">)</span>
 </code></pre>
+<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='cocoapods'>Cocoapods</h2>
+
+<p>not yet officially released</p>
+<a href='#carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='carthage'>Carthage</h2>
+
+<p>not yet officially released</p>
 <a href='#usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='usage'>Usage</h3>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">BiftVector</span>
 </code></pre>
-
-<!-- ##### Bringing up REPL using Swift PM -->
-
-<!-- Uncomment when this works on macOS and Linux -->
-
-<!-- ``` bash -->
-
-<!-- $ cd /path/to/checkout -->
-
-<!-- $ swift build -->
-
-<!-- $ swift -I.build/debug -L.build/debug -lBiftVector -->
-
-<!-- Welcome to Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1). Type :help for assistance. -->
-
-<!--   1> import BiftVector &ndash;>
-
-<!-- ``` -->
-
-<!-- -->
 <a href='#using-repl-on-macos' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='using-repl-on-macos'>Using REPL on macOS</h4>
 
 <p>Point <code>swift</code> to the built Framwork. Here&rsquo;s how, assuming a successful build in XCode:</p>
@@ -142,10 +131,28 @@ bv1: BiftVector.BiftVector <span class="o">=</span> <span class="o">{</span>
 001111110000000000010001100111111111001000100001001101010000010001010010
 </code></pre>
 
-<p>TBD</p>
-<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='cocoapods'>Cocoapods</h2>
+<p>The above loads the framework that XCode project builds.</p>
+<a href='#bringing-up-repl-using-swift-pm' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='bringing-up-repl-using-swift-pm'>Bringing up REPL using Swift PM</h4>
 
-<p>TBD</p>
+<p>This is still not working <q>out of the box</q> in Swift 3.0.2 release (which came bundled with XCode 8.2)</p>
+
+<!-- Uncomment when this works on macOS and Linux -->
+
+<!-- ``` bash -->
+
+<!-- $ cd /path/to/checkout -->
+
+<!-- $ swift build -->
+
+<!-- $ swift -I.build/debug -L.build/debug -lBiftVector -->
+
+<!-- Welcome to Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1). Type :help for assistance. -->
+
+<!--   1> import BiftVector &ndash;>
+
+<!-- ``` -->
+
+<!-- -->
 
           </div>
         </section>

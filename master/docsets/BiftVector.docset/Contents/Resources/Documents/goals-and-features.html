@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>Examples  Reference</title>
+    <title>Goals And Features  Reference</title>
     <link rel='stylesheet' type='text/css' href='css/jazzy.css' />
     <link rel='stylesheet' type='text/css' href='css/highlight.css' />
     <meta charset='utf-8'>
@@ -11,7 +11,7 @@
   <body>
 
 
-    <a title='Examples  Reference'></a>
+    <a title='Goals And Features  Reference'></a>
 
     <header class='header'>
       <p class='header-col header-col--primary'>
@@ -39,7 +39,7 @@
     <p class='breadcrumbs'>
       <a class='breadcrumb' href='index.html'>BiftVector Reference</a>
       <img class='carat' src='img/carat.png' />
-      Examples  Reference
+      Goals And Features  Reference
     </p>
 
     <div class='content-wrapper'>
@@ -89,17 +89,33 @@
         <section class='section'>
           <div class='section-content'>
             
-            <a href='#examples' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='examples'>Examples</h1>
-<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">BiftVector</span>
-<span class="k">let</span> <span class="nv">bv1</span> <span class="o">=</span> <span class="o">~</span><span class="kt">BiftVector</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">32</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">bv2</span> <span class="o">=</span> <span class="kt">BiftVector</span><span class="p">(</span><span class="nv">hexString</span><span class="p">:</span> <span class="s">"21350452"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">bv1</span> <span class="o">^</span> <span class="n">bv2</span>
-<span class="k">let</span> <span class="nv">bv3</span> <span class="o">=</span> <span class="kt">BiftVector</span><span class="p">(</span><span class="nv">hexString</span><span class="p">:</span> <span class="s">"decafBAD"</span><span class="p">)</span>
+            <a href='#goals-and-features' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='goals-and-features'>Goals And Features</h1>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">bv3</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"We've succeeded! 😎"</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre>
+<p>The <a href="https://github.com/idcrook/BiftVector/wiki">project wiki</a> has additional features listed.</p>
+
+<p>Main goals</p>
+
+<ul>
+<li>Intends to support <q>arbitrarily-sized</q> bit vectors</li>
+<li>Include full complement of functions and operators</li>
+<li>Documented API</li>
+<li>Cross-platform compatible (Linux, iOS, macOS, watchOS, tvOS)</li>
+<li>Use continuous integration and TDD (Test Driven Development) practices</li>
+</ul>
+
+<p>Additional goals</p>
+
+<ul>
+<li>Be performant and memory efficient</li>
+<li>Include a CLI wrapper as a demo application</li>
+<li>Include a Swift Playground to as another demo</li>
+</ul>
+<a href='#compatibility' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='compatibility'>Compatibility</h2>
+
+<ul>
+<li>Swift 3.0+, Xcode 8+</li>
+<li>64b platforms</li>
+</ul>
 
           </div>
         </section>
