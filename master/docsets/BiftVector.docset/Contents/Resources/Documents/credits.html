@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Credits  Reference</title>
+    <link rel='stylesheet' type='text/css' href='css/jazzy.css' />
+    <link rel='stylesheet' type='text/css' href='css/highlight.css' />
+    <meta charset='utf-8'>
+    <script src='js/jquery.min.js' defer></script>
+    <script src='js/jazzy.js' defer></script>
+  </head>
+  <body>
+
+
+    <a title='Credits  Reference'></a>
+
+    <header class='header'>
+      <p class='header-col header-col--primary'>
+        <a class='header-link' href='index.html'>
+          BiftVector Docs
+        </a>
+         (80% documented)
+      </p>
+    
+        <p class='header-col header-col--secondary'>
+          <a class='header-link' href='https://github.com/idcrook/BiftVector'>
+            <img class='header-icon' src='img/gh.png'/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class='header-col header-col--secondary'>
+          <a class='header-link' href='dash-feed://http%3A%2F%2Fidcrook%2Egithub%2Eio%2FBiftVector%2Fmaster%2Fdocsets%2FBiftVector%2Exml'>
+            <img class='header-icon' src='img/dash.png'/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class='breadcrumbs'>
+      <a class='breadcrumb' href='index.html'>BiftVector Reference</a>
+      <img class='carat' src='img/carat.png' />
+      Credits  Reference
+    </p>
+
+    <div class='content-wrapper'>
+      <nav class='navigation'>
+        <ul class='nav-groups'>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Documentation.html'>Documentation</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='getting-started-guide.html'>Getting Started Guide</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='installation.html'>Installation</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='examples.html'>Examples</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='contributing.html'>Contributing</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='development.html'>Development</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='credits.html'>Credits</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='license.html'>License</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Main.html'>Main</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/BiftVector.html'>BiftVector</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class='main-content'>
+
+        <section class='section'>
+          <div class='section-content'>
+            
+            <a href='#credits' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='credits'>Credits</h1>
+<a href='#author' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='author'>Author</h2>
+
+<p>David Crook - @idcrook</p>
+<a href='#how-this-was-created' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='how-this-was-created'>How this was created</h2>
+
+<p>In macOS</p>
+<pre class="highlight shell"><code>mkdir BiftVector
+<span class="nb">cd </span>BiftVector
+git init .
+swift package init --type library
+swift package generate-xcodeproj
+open BiftVector.xcodeproj
+</code></pre>
+
+<p>Later used SwiftPlate project output as guide <a href="https://github.com/JohnSundell/SwiftPlate">https://github.com/JohnSundell/SwiftPlate</a></p>
+<a href='#attribution' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='attribution'>Attribution</h2>
+
+<p>Inspired by open source projects:</p>
+
+<ul>
+<li><a href="https://pypi.python.org/pypi/BitVector">BitVector project</a> (Python)</li>
+<li>Swift Algorithm Club <a href="https://github.com/raywenderlich/swift-algorithm-club/tree/master/Bit%20Set">Bit Set</a> (Swift)</li>
+</ul>
+
+<p>Named as a portmanteau word of <code>Bit</code> and <code>Swift</code> (sounds like <code>Biffed</code>) forming into Vector.</p>
+<a href='#related-packages' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='related-packages'>Related packages</h3>
+
+<p>Searching through CocoaPods, I noticed</p>
+
+<ul>
+<li>Bit</li>
+<li>Bitter</li>
+<li>BitByteStream</li>
+</ul>
+
+<p>There are some related Framework types, but all of them seem to be restricted to operating on single words (i.e., up to 64 bits)</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class='footer'>
+      <p>© 2016 <a class="link" href="https://github.com/idcrook/BiftVector" target="_blank" rel="external">BiftVector</a>. All rights reserved.</p>
+      <p>Generated by <a class='link' href='https://github.com/realm/jazzy' target='_blank' rel='external'>jazzy ♪♫ v0.7.3</a>, a <a class='link' href='http://realm.io' target='_blank' rel='external'>Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

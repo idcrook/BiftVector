@@ -1,0 +1,54 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": null,
+      "symbol": "BiftVector",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": null,
+      "symbol": "BiftVector",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": null,
+      "symbol": "BiftVector",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": null,
+      "symbol": "BiftVector",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": null,
+      "symbol": "BiftVector",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": 38,
+      "symbol": "BiftVector",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs/Sources/BiftVector.swift",
+      "line": 286,
+      "symbol": "BiftVector.isSet(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/dpc/projects/xcode8/Projects/BiftVector-docs"
+}
