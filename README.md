@@ -87,7 +87,6 @@ not yet officially released
 import BiftVector
 ```
 
-
 #### Using REPL on macOS
 
 Point `swift` to the built Framwork. Here's how, assuming a successful build in XCode:
@@ -123,6 +122,19 @@ This is still not working "out of the box" in Swift 3.0.2 release (which came bu
 <!--   1> import BiftVector -->
 <!-- ``` -->
 <!-- -->
+
+#### Using Playground on macOS
+
+There is now a `BiftVectorPlayground.playground`
+
+However, there are still some unresolved problems with build Framework/Library in the schemes. Have been able to get playground to work using following:
+
+``` bash
+open BiftVector.xcworkspace
+# Now build using BiftVector-macOS schemes-- Included .playground now works
+```
+
+Need a better, more idiomatic, less fiddly way.
 
 # Development
 
