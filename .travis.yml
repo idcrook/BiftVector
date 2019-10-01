@@ -1,8 +1,14 @@
-osx_image: xcode8.1
-language: objective-c
+---
+os: osx
+osx_image: xcode11
+language: swift  # currently an alias for objective-c
 
 branches:
   only:
     - master
 
-script: xcodebuild  -scheme BiftVector-macOS -project BiftVector.xcodeproj test
+#script: xcodebuild  -scheme BiftVector-macOS -project BiftVector.xcodeproj test
+xcode_project: BiftVector.xcodeproj
+xcode_scheme: BiftVectorTests
+#xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
+xcode_destination: platform=macOS
