@@ -94,13 +94,13 @@ public struct BiftVector {
     ///
     /// - Parameter bitstring: String containing text characters 0 or 1
     public init (bitString: String ) {
-        assert(bitString.characters.count >= 0)
+        assert(bitString.count >= 0)
 
-        self.size = bitString.characters.count
+        self.size = bitString.count
         let n = BiftVector.bitCountToWordCount(self.size)
 
         words = [Word](repeating: 0, count: n)
-        for (index, character) in bitString.characters.enumerated() {
+        for (index, character) in bitString.enumerated() {
             //debugPrint ("index \(index + 1): \(character)")
             if character == "1" {
                 set(index)
@@ -120,7 +120,7 @@ public struct BiftVector {
 
         // get bits representation
         let bits = String(uintVal, radix: 2)
-        let numberOfBits = bits.characters.count
+        let numberOfBits = bits.count
 
         debugPrint("\(uintVal) \(bits) \(numberOfBits)")
         if numberOfBits < size {
@@ -138,14 +138,14 @@ public struct BiftVector {
     ///
     /// - Parameter textString: String containing characters to form bit vector. Assumes UTF-8 encoding.
     public init (textString: String) {
-        assert(textString.characters.count >= 0 )
+        assert(textString.count >= 0 )
 
         var bitString = ""
 
 
         for byte in textString.utf8 {
             let byteBits = String(byte, radix: 2)
-            let padding = String(repeating: "0", count: (8 - byteBits.characters.count))
+            let padding = String(repeating: "0", count: (8 - byteBits.count))
 
             bitString = bitString + padding + byteBits
         }
@@ -159,17 +159,17 @@ public struct BiftVector {
     /// - Parameter size: Size of the new vector
     public init (hexString: String, size: Int) {
         assert(size > 0)
-        assert(hexString.characters.count >= 0 )
+        assert(hexString.count >= 0 )
 
         // check for truncation
-        let nibblesInBits = hexString.characters.count * 4
+        let nibblesInBits = hexString.count * 4
         if (size < nibblesInBits) {
             debugPrint("string \(hexString) likely contains more implicit bits than size \(size)")
         }
 
         var bitString = ""
 
-        for (_, character) in hexString.lowercased().characters.enumerated() {
+        for (_, character) in hexString.lowercased().enumerated() {
             let nibble = BiftVector.lookupHexNibbleBitstring(character)
             bitString = bitString + nibble
         }
@@ -186,7 +186,7 @@ public struct BiftVector {
     /// - Parameter withSize: Number of bits for new vector to contain
     public init (hexString: String, withSize size: Int) {
         assert(size > 0)
-        assert(hexString.characters.count >= 0 )
+        assert(hexString.count >= 0 )
 
         self.init(hexString: hexString, size: size)
     }
@@ -195,10 +195,10 @@ public struct BiftVector {
     ///
     /// - Parameter hexString: String containing hex digits used to initialize a new vector
     public init (hexString: String) {
-        assert(hexString.characters.count >= 0 )
+        assert(hexString.count >= 0 )
 
         var size: Int = BiftVector.N   // default implicit BiftVector size
-        let nibblesInBits = hexString.characters.count * 4
+        let nibblesInBits = hexString.count * 4
         if nibblesInBits > size {
             size = nibblesInBits
         }
@@ -215,7 +215,7 @@ public struct BiftVector {
         
         // Since the bits are stored reversed from UInt8 order, use a reversed bitorder copy
         let bvBitString = self.description
-        let bv = BiftVector(bitString: String(bvBitString.characters.reversed()))
+        let bv = BiftVector(bitString: String(bvBitString.reversed()))
         
         var array: [UInt8] = Array<UInt8>()
         let _ = bv.words.withUnsafeBytes { (ptr) in
@@ -234,7 +234,7 @@ public struct BiftVector {
         
         // Since the bits are stored reversed from UInt8 order, use a reversed bitorder copy
         let bvBitString = self.description
-        let bv = BiftVector(bitString: String(bvBitString.characters.reversed()))
+        let bv = BiftVector(bitString: String(bvBitString.reversed()))
         
         var array: [UInt64] = Array<UInt64>()
         let _ = bv.words.withUnsafeBufferPointer { (ptr) in
@@ -283,7 +283,7 @@ public struct BiftVector {
             // Set the highest bit that's still valid.
             let mask = 1 << Word(BiftVector.N - 1 - diff)
             // Subtract 1 to turn it into a mask, and add the high bit back in.
-            return mask | (mask - 1)
+            return BiftVector.Word(mask | (mask - 1))
         } else {
             return BiftVector.allOnes
         }
@@ -341,14 +341,14 @@ public struct BiftVector {
     }
 
     static private func lookupHexNibbleBitstring(_ character: Character) -> String {
-        assert("0123456789abcdef".characters.contains(character))
+        assert("0123456789abcdef".contains(character))
         var nibble = "0000"
 
         let nibbleNumber = UInt8(String(character), radix: 16)
         if let number = nibbleNumber {
             let convertedToBits = String(number & 0xf, radix: 2)
             // A nibble is 4 bits in size
-            let padding = String(repeating: "0", count: (4 - convertedToBits.characters.count))
+            let padding = String(repeating: "0", count: (4 - convertedToBits.count))
             nibble = padding + convertedToBits
         }
 
@@ -381,13 +381,13 @@ extension String {
     ///
     /// - Parameter to: New length of bitString
     mutating func truncateBitString(to size: Int) {
-        guard size <= self.characters.count else {
+        guard size <= self.count else {
             return  // size greater than number of characters: no need to truncate
         }
         let bitStringEndIndex = self.endIndex
         let bitStringstartIndex = self.index(bitStringEndIndex, offsetBy: -size)
         let range = Range(uncheckedBounds: (lower: bitStringstartIndex, upper: bitStringEndIndex))
-        self = self[range]
+        self = String(self[range])
     }
 
 }

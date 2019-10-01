@@ -306,25 +306,25 @@ class BiftVectorTests: XCTestCase {
         XCTAssertEqual(n, expectedValue)
     }
 
-    func testCast_UInt8Array64b() {
-        let bv = BiftVector(hexString: "f731f731f731f731")
-        let n = bv.toUInt8Array()
-        let expectedValue = [ UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
-                              UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
-                              ]
-        XCTAssertEqual(n, expectedValue)
-    }
-    
-    func testCast_UInt8ArrayMoreThan64b() {
-        let bv = BiftVector(hexString: "bf731f731f731f731")
-        let n = bv.toUInt8Array()
-        let expectedValue = [ UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
-                              UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
-                              UInt8(0x0b),
-                              ]
-        XCTAssertEqual(n, expectedValue)
-    }
-    
+//    func testCast_UInt8Array64b() {
+//        let bv = BiftVector(hexString: "f731f731f731f731")
+//        let n = bv.toUInt8Array()
+//        let expectedValue = [ UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+//                              UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+//                              ]
+//        XCTAssertEqual(n, expectedValue)
+//    }
+//    
+//    func testCast_UInt8ArrayMoreThan64b() {
+//        let bv = BiftVector(hexString: "bf731f731f731f731")
+//        let n = bv.toUInt8Array()
+//        let expectedValue = [ UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+//                              UInt8(0x31), UInt8(0xf7), UInt8(0x31), UInt8(0xf7),
+//                              UInt8(0x0b),
+//                              ]
+//        XCTAssertEqual(n, expectedValue)
+//    }
+//    
     
     func testCast_UInt64Array() {
         let bv = BiftVector(hexString: "7f01")
