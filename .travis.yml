@@ -9,6 +9,5 @@ branches:
 
 #script: xcodebuild  -scheme BiftVector-macOS -project BiftVector.xcodeproj test
 xcode_project: BiftVector.xcodeproj
-xcode_scheme: BiftVectorTests
-#xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
+xcode_scheme: BiftVector-macOS
 xcode_destination: platform=macOS
