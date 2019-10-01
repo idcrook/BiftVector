@@ -44,7 +44,7 @@
 public struct BiftVector {
 
     // Bit storage uses 64 bit words
-    static fileprivate let N = 64
+    static public let N = 64
     public typealias Word = UInt64
     
     /// How many **bits** are in this
