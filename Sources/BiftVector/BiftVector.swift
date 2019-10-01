@@ -458,54 +458,71 @@ extension BiftVector: Collection {
     }
 }
 
-// MARK: Bitwise operations
+// MARK: - Equality
+//extension BiftVector: Equatable {
+//}
 
-extension BiftVector: BitwiseOperations {
-    public static var allZeros: BiftVector {
-        return BiftVector(size: BiftVector.N)
-    }
-    
-    static private func copyLargest(_ lhs: BiftVector, _ rhs: BiftVector) -> BiftVector {
-        return (lhs.words.count > rhs.words.count) ? lhs : rhs
-    }
-    
-    static public func | (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
-        var out = copyLargest(lhs, rhs)
-        let n = [lhs.words.count, rhs.words.count].min()!
-        for i in 0..<n {
-            out.words[i] = lhs.words[i] | rhs.words[i]
+//public func == (lhs: BiftVector, rhs: BiftVector) -> Bool {
+//  return lhs.words == rhs.words
+//}
+
+// MARK: - Hashing
+extension BiftVector: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        for i in stride(from: words.count, to: 0, by: -1) {
+            hasher.combine(words[i - 1])
         }
-        return out
     }
-    
-    // Returns the intersection of bits set in the two arguments.
-    static public func & (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
-        let return_size = (lhs.size > rhs.size) ? lhs.size : rhs.size
-        var out = BiftVector(size: return_size)
-        let n = [lhs.words.count, rhs.words.count].min()!
-        for i in 0..<n {
-            out.words[i] = lhs.words[i] & rhs.words[i]
-        }
-        return out
-    }
-    
-    static public func ^ (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
-        var out = copyLargest(lhs, rhs)
-        let n = [lhs.words.count, rhs.words.count].min()!
-        for i in 0..<n {
-            out.words[i] = lhs.words[i] ^ rhs.words[i]
-        }
-        return out
-    }
-    
-    static prefix public func ~ (rhs: BiftVector) -> BiftVector {
-        var out = BiftVector(size: rhs.size)
-        for i in 0..<rhs.words.count {
-            out.words[i] = ~rhs.words[i]
-        }
-        out.clearUnusedBits()
-        return out
-    }
-    
 }
+
+// MARK: - Bitwise operations
+extension BiftVector {
+  public static var allZeros: BiftVector {
+    return BiftVector(size: 64)
+  }
+}
+
+
+private func copyLargest(_ lhs: BiftVector, _ rhs: BiftVector) -> BiftVector {
+    return (lhs.words.count > rhs.words.count) ? lhs : rhs
+}
+
+public func | (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
+    var out = copyLargest(lhs, rhs)
+    let n = [lhs.words.count, rhs.words.count].min()!
+    for i in 0..<n {
+        out.words[i] = lhs.words[i] | rhs.words[i]
+    }
+    return out
+}
+
+// Returns the intersection of bits set in the two arguments.
+public func & (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
+    let return_size = (lhs.size > rhs.size) ? lhs.size : rhs.size
+    var out = BiftVector(size: return_size)
+    let n = [lhs.words.count, rhs.words.count].min()!
+    for i in 0..<n {
+        out.words[i] = lhs.words[i] & rhs.words[i]
+    }
+    return out
+}
+
+public func ^ (lhs: BiftVector, rhs: BiftVector) -> BiftVector {
+    var out = copyLargest(lhs, rhs)
+    let n = [lhs.words.count, rhs.words.count].min()!
+    for i in 0..<n {
+        out.words[i] = lhs.words[i] ^ rhs.words[i]
+    }
+    return out
+}
+
+prefix public func ~ (rhs: BiftVector) -> BiftVector {
+    var out = BiftVector(size: rhs.size)
+    for i in 0..<rhs.words.count {
+        out.words[i] = ~rhs.words[i]
+    }
+    out.clearUnusedBits()
+    return out
+}
+
 
