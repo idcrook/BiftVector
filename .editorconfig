@@ -6,7 +6,3 @@ trim_trailing_whitespace = true
 [*.swift]
 indent_style = space
 indent_size = 4
-
-
-[{Podfile,Fastfile,Matchfile}]
-indent_size = 2
